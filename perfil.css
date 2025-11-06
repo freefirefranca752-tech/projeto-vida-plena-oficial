@@ -1,4 +1,4 @@
-        :root {
+:root {
             --green-dark: #285430;
             --green-light: #5F8D4E;
             --accent-color: #E5B80B;
@@ -28,58 +28,6 @@
             background-image: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23285430" fill-opacity="0.04"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>');
         }
         
-        /* --- MODO ESCURO --- */
-        body.dark-mode {
-            --bg-soft: #121212;
-            --bg-color: #1e1e1e;
-            --text-color: #e0e0e0;
-            --text-light: #a0a0a0;
-            --border-color: #333333;
-            --shadow: 0 4px 20px rgba(0,0,0,0.25);
-            background-image: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%235F8D4E" fill-opacity="0.06"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>');
-        }
-        body.dark-mode .profile-nav, body.dark-mode .profile-card { background-color: var(--bg-color); }
-        body.dark-mode .profile-nav-links a { color: var(--text-light); }
-        body.dark-mode .profile-nav-links a:hover { background: #3a3a3a; color: var(--text-color); }
-        body.dark-mode .profile-nav-links a.active { background: var(--green-dark); }
-        body.dark-mode .form-group input { background-color: #3a3a3a; border-color: var(--border-color); color: var(--text-color); }
-        body.dark-mode .form-group input[disabled] { background: #4f4f4f; }
-        body.dark-mode .notification-item { border-bottom-color: var(--border-color); }
-        body.dark-mode .notification-item:hover { background-color: #3a3a3a; }
-        body.dark-mode .notification-item i { color: var(--green-light); }
-        body.dark-mode .friend-item .btn-accept { background-color: var(--green-light); color: var(--white); }
-        body.dark-mode .friend-item .btn-accept:hover { background-color: var(--green-dark); }
-        body.dark-mode .friend-item-avatar { border-color: var(--border-color); }
-        body.dark-mode .chat-sidebar { border-right-color: var(--border-color); }
-        body.dark-mode .chat-conversation-item:hover { background-color: #3a3a3a; }
-        body.dark-mode .chat-conversation-item.active { background-color: var(--green-dark); }
-        body.dark-mode .chat-window-header { border-bottom-color: var(--border-color); }
-        body.dark-mode .chat-message-list { background-color: #2a2a2a; }
-        body.dark-mode .message-item.sent .message-bubble { background-color: var(--green-dark); color: var(--white); }
-        body.dark-mode .message-item.received .message-bubble { background-color: #3a3a3a; }
-        body.dark-mode .chat-send-form { border-top-color: var(--border-color); }
-        body.dark-mode .chat-send-form input { background-color: #3a3a3a; border-color: var(--border-color); color: var(--text-color); }
-        body.dark-mode .chat-window-empty p { color: var(--text-light); }
-        body.dark-mode .message-actions button { color: #aaa; }
-        body.dark-mode .message-actions button:hover { background-color: #555; color: var(--white); }
-        body.dark-mode .message-quote { background-color: #333; }
-        body.dark-mode .message-quote-author { color: var(--green-light); }
-        body.dark-mode .edit-form input { background-color: #444; }
-        body.dark-mode .reply-preview-bar { background-color: #2c2c2c; border-bottom-color: var(--border-color); }
-        body.dark-mode .reply-preview-bar strong { color: var(--green-light); }
-        body.dark-mode #cancel-reply-btn { color: #aaa; }
-        body.dark-mode .friend-status.online { color: var(--green-light); }
-        body.dark-mode .friend-status.offline { color: var(--text-light); }
-        body.dark-mode .btn-start-chat { background-color: #3a3a3a; color: var(--text-color); }
-        body.dark-mode .btn-start-chat:hover { background-color: #444; }
-        body.dark-mode .chat-header-status.online { color: var(--green-light); }
-        body.dark-mode #scrollTopBtn { background-color: var(--green-light); color: var(--white); }
-        body.dark-mode .chat-back-btn { color: var(--text-color); }
-        body.dark-mode .menu-toggle { color: var(--text-color); } 
-        body.dark-mode .nav-links { background-color: var(--bg-soft); } 
-        body.dark-mode .nav-links a[href="perfil.html"] { color: var(--green-light) !important; } 
-
-        
         main { 
             flex: 1;
             padding: 60px 0; 
@@ -93,21 +41,62 @@
         .btn-danger { background-color: var(--danger-color); color: var(--white); }
         .btn-danger:hover { background-color: var(--danger-color-hover); }
 
-        .main-header { box-shadow: 0 2px 8px rgba(0,0,0,0.05); padding: 1rem 0; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.85); border-bottom: 1px solid #eee; transition: background-color 0.3s, border-color 0.3s; }
-        body.dark-mode .main-header { background-color: rgba(30, 30, 30, 0.85); border-bottom: 1px solid var(--border-color); }
-        .main-header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: var(--font-title); font-size: 1.8rem; font-weight: 700; color: var(--green-dark); text-decoration: none; display: flex; align-items: center; gap: 8px; }
-        body.dark-mode .logo { color: var(--green-light); }
+        /* ================================================== */
+        /* INÍCIO DA SUBSTITUIÇÃO DO CABEÇALHO */
+        /* (Código copiado de comunidade.css) */
+        /* ================================================== */
+
+        .main-header { box-shadow: 0 2px 8px rgba(0,0,0,0.05); padding: 1rem 0; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.85); border-bottom: 1px solid #eee; transition: background-color 0.3s, border-color 0.3s;}
+        .main-header .container { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            /* Regras de alinhamento do desktop */
+            max-width: none;
+            margin: 0;
+            padding: 0 20px;
+        }
+        .logo { 
+            font-family: var(--font-title); 
+            font-size: 1.8rem; 
+            font-weight: 700; 
+            color: var(--green-dark); 
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            white-space: nowrap; 
+            margin-right: 40px; 
+        }
         
-        .main-nav { display: flex; align-items: center; gap: 20px; }
+        /* Regras globais para a imagem e texto do logo (de comunidade.css) */
+        .logo-img {
+            height: 40px;
+            width: 40px;
+            object-fit: contain;
+        }
+
+        .logo span {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            white-space: nowrap; 
+        }
+
+        .main-nav { display: flex; align-items: center; gap: 20px; } /* Mantido o gap: 20px original do perfil.css */
         .nav-links { display: flex; gap: 35px; list-style: none; align-items: center; }
-        .nav-links a { color: var(--text-color); text-decoration: none; font-weight: 600; transition: color 0.3s ease; position: relative; padding-bottom: 5px; }
+        .nav-links a { color: var(--text-color); text-decoration: none; font-weight: 600; transition: color 0.3s ease; position: relative; padding-bottom: 5px; white-space: nowrap; }
         .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 50%; transform: translateX(-50%); background-color: var(--accent-color); transition: width 0.3s ease-in-out; }
         .nav-links a:hover::after { width: 100%; }
         .nav-links a:hover { color: var(--green-dark); }
-        body.dark-mode .nav-links a:hover { color: var(--green-light); }
-        .menu-toggle { display: none; cursor: pointer; background: none; border: none; z-index: 1001; color: var(--text-color); }
-
+        .menu-toggle { display: none; cursor: pointer; background: none; border: none; z-index: 1001; }
+       
+        /* ================================================== */
+        /* FIM DA SUBSTITUIÇÃO DO CABEÇALHO */
+        /* ================================================== */
+       
+        /* Estilos do perfil (avatar, etc) mantidos */
         .nav-avatar {
             width: 40px;
             height: 40px;
@@ -133,11 +122,18 @@
         }
         .btn-nav { padding: 10px 25px; border-radius: 50px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; background-color: var(--green-dark); color: var(--white); border: 2px solid var(--green-dark); }
         .btn-nav:hover { background-color: var(--green-light); border-color: var(--green-light); }
-        body.dark-mode .btn-nav { background-color: var(--green-light); border-color: var(--green-light); color: var(--bg-soft); }
-
+       
 
         .main-footer { background: var(--green-dark); color: rgba(255, 255, 255, 0.7); padding: 60px 0 0; }
         .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px; }
+        
+        .footer-col.footer-about {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center; 
+        }
+        
         .footer-about .logo { color: var(--white); margin-bottom: 15px; }
         .footer-col h4 { font-family: var(--font-title); color: var(--white); font-size: 1.2rem; margin-bottom: 15px; }
         .footer-col ul { list-style: none; padding: 0; }
@@ -156,10 +152,10 @@
         .avatar-edit:hover { background: var(--green-light); }
         #avatar-input { display: none; }
         
-        .profile-nav h2 { font-size: 1.5rem; margin-bottom: 5px; color: var(--text-color); }
-        .profile-nav p { color: var(--text-light); margin-bottom: 25px; word-break: break-all; }
+        .profile-nav h2 { font-size: 1.7rem; margin-bottom: 5px; color: var(--text-color); }
+        .profile-nav p { color: var(--text-light); margin-bottom: 25px; word-break: break-word; }
         .profile-nav-links { list-style: none; text-align: left; padding: 0; }
-        .profile-nav-links a { display: flex; align-items: center; gap: 10px; padding: 12px; border-radius: 8px; text-decoration: none; color: var(--text-light); font-weight: 600; transition: background-color 0.3s, color 0.3s; cursor: pointer; position: relative; }
+        .profile-nav-links a { display: flex; align-items: center; gap: 10px; padding: 12px 15px; border-radius: 8px; text-decoration: none; color: var(--text-light); font-weight: 600; transition: background-color 0.3s, color 0.3s; cursor: pointer; position: relative; }
         .profile-nav-links a:hover { background: var(--bg-soft); color: var(--text-color); }
         .profile-nav-links a.active { background: var(--green-light); color: white; }
         #logout-btn { color: var(--accent-color); }
@@ -180,7 +176,7 @@
             margin-bottom: 30px;
         }
 
-        .profile-card h3 { font-family: var(--font-title); color: var(--text-color); margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-size: 1.4rem; }
+        .profile-card h3 { font-family: var(--font-title); color: var(--text-color); margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; font-size: 1.8rem; }
         
         .profile-card h4 {
             font-family: var(--font-title);
@@ -192,7 +188,7 @@
 
         .form-group { margin-bottom: 20px; display: flex; flex-direction: column; }
         .form-group label { margin-bottom: 8px; font-weight: 600; }
-        .form-group input { padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 1rem; background-color: var(--bg-soft); color: var(--text-color); }
+        .form-group input { padding: 14px 15px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 1rem; background-color: var(--bg-soft); color: var(--text-color); }
         .form-group input[disabled] { background: #e9ecef; cursor: not-allowed; }
         
         .inline-form { display: flex; gap: 10px; }
@@ -201,7 +197,11 @@
 
         .input-with-button { display: flex; gap: 10px; }
         .input-with-button input { flex-grow: 1; }
-        .input-with-button .btn { padding-top: 12px; padding-bottom: 12px; flex-shrink: 0; }
+        
+        .input-with-button .btn { 
+            padding: 14px 15px; 
+            flex-shrink: 0; 
+        }
 
         #feedback-message, #friend-feedback-message, #password-feedback-message { text-align: center; padding: 10px; margin-top: 20px; border-radius: 8px; display: none; }
         #feedback-message.success, #friend-feedback-message.success, #password-feedback-message.success { background-color: #d1e7dd; color: #0f5132; display: block; }
@@ -216,7 +216,7 @@
         .notification-item.unread { font-weight: bold; background-color: var(--bg-soft); }
 
         .friend-list { display: flex; flex-direction: column; gap: 15px; }
-        .friend-item { display: flex; align-items: center; gap: 15px; padding: 10px; border-radius: 8px; background-color: var(--bg-soft); }
+        .friend-item { display: flex; align-items: center; gap: 15px; padding: 15px; border-radius: 8px; background-color: var(--bg-soft); }
         .friend-item-avatar { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--white); }
         .friend-item-info { flex-grow: 1; }
         .friend-item-info strong { font-size: 1.1rem; }
@@ -247,10 +247,12 @@
         .chat-placeholder i { width: 60px; height: 60px; color: var(--green-light); }
         .chat-placeholder p { font-size: 1.1rem; color: var(--text-light); margin-top: 15px; }
         
-        #mensagens-panel .profile-card { padding: 0; }
+        #mensagens-panel .profile-card { 
+            padding: 0; 
+        }
         .chat-layout { display: grid; grid-template-columns: 280px 1fr; height: 600px; overflow: hidden; border-radius: 15px; }
         .chat-sidebar { background-color: var(--bg-color); border-right: 1px solid var(--border-color); overflow-y: auto; display: flex; flex-direction: column; }
-        .chat-sidebar-header { padding: 20px; font-family: var(--font-title); font-size: 1.4rem; border-bottom: 1px solid var(--border-color); }
+        .chat-sidebar-header { padding: 25px 20px; font-family: var(--font-title); font-size: 1.5rem; border-bottom: 1px solid var(--border-color); }
         .chat-conversation-list { flex-grow: 1; overflow-y: auto; }
         .chat-conversation-item { display: flex; align-items: center; gap: 12px; padding: 15px; cursor: pointer; border-bottom: 1px solid var(--border-color); transition: background-color 0.3s; }
         .chat-conversation-item:hover { background-color: var(--bg-soft); }
@@ -262,7 +264,7 @@
         .chat-conversation-info p { font-size: 0.85rem; color: var(--text-light); margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
         .chat-window { display: flex; flex-direction: column; background-color: var(--bg-color); min-height: 0; }
-        .chat-window-header { padding: 15px 20px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 15px; }
+        .chat-window-header { padding: 18px 20px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 15px; }
         .chat-window-header img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
         .chat-window-header strong { font-size: 1.2rem; }
         
@@ -272,6 +274,7 @@
             color: var(--text-light);
             font-weight: 400;
             margin: 0;
+            margin-top: 2px; 
         }
         .chat-header-status.online {
             color: var(--green-dark);
@@ -306,10 +309,64 @@
         .message-item.received { align-self: flex-start; }
         .message-item.received .message-bubble { background-color: var(--white); border: 1px solid var(--border-color); border-bottom-left-radius: 5px; }
         
+        .message-content {
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .message-content .message-full,
+        .message-content .btn-ver-menos {
+            display: none; 
+        }
+        .message-content.expanded .message-short,
+        .message-content.expanded .btn-ler-mais {
+            display: none; 
+        }
+        .message-content.expanded .message-full,
+        .message-content.expanded .btn-ver-menos {
+            display: inline; 
+        }
+        .btn-ler-mais,
+        .btn-ver-menos {
+            display: block; 
+            margin-top: 10px;
+            padding: 6px 12px;
+            background: var(--bg-soft);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .message-content.expanded .btn-ver-menos {
+            display: block; 
+        }
+
         .chat-send-form-container { border-top: 1px solid var(--border-color); }
-        .chat-send-form { display: flex; gap: 10px; padding: 20px; }
-        .chat-send-form input { flex-grow: 1; padding: 14px 20px; border-radius: 50px; border: 1px solid var(--border-color); font-size: 1rem; }
-        .chat-send-form button { padding: 0 25px; border-radius: 50px; font-size: 1rem; background-color: var(--green-dark); color: var(--white); }
+        .chat-send-form { display: flex; gap: 10px; padding: 20px; align-items: flex-end; }
+        
+        .chat-send-form textarea {
+            flex-grow: 1;
+            padding: 14px 20px;
+            border-radius: 24px; 
+            border: 1px solid var(--border-color);
+            font-size: 1rem;
+            font-family: var(--font-body);
+            resize: none; 
+            line-height: 1.5;
+            max-height: 150px; 
+            overflow-y: hidden; 
+        }
+        
+        .chat-send-form button { 
+            padding: 0 25px; 
+            height: 50px; 
+            border-radius: 50px; 
+            font-size: 1rem; 
+            background-color: var(--green-dark); 
+            color: var(--white);
+            flex-shrink: 0; 
+        }
         .chat-send-form button:hover { background-color: var(--green-light); }
         .chat-send-form button i { width: 20px; height: 20px; }
         
@@ -389,6 +446,27 @@
             transform: translateY(-2px);
         }
 
+        .chat-conversation-avatar-wrapper {
+            position: relative; 
+            flex-shrink: 0; 
+        }
+
+        .conversation-unread-count {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 50%;
+            padding: 2px 7px;
+            border: 2px solid var(--bg-color); 
+            line-height: 1;
+            display: none; 
+        }
+
+
         /* ================================================================
          CSS RESPONSIVO (MOBILE)
         ================================================================
@@ -400,32 +478,28 @@
         }
 
         @media (max-width: 768px) {
-            /* [ALTERADO] Remove o sticky footer no mobile */
             body {
                 min-height: auto;
             }
             main {
                 padding: 30px 0;
-                flex: none; /* Desativa o flex-grow */
+                flex: none; 
             }
-            /* Fim [ALTERADO] */
 
             .container {
-                padding: 0 15px;
-            }
-
-            .main-header {
-                padding: 1rem;
+                 padding: 0; 
             }
             
-            .main-nav { 
-                flex-grow: 1; 
-                justify-content: flex-end; 
-            }
+            /* ================================================== */
+            /* INÍCIO DA SUBSTITUIÇÃO DO HEADER MOBILE */
+            /* (Código copiado de comunidade.css) */
+            /* ================================================== */
+
+            /* Regras do Menu Mobile de comunidade.css */
             .nav-links { 
                 position: fixed; 
                 top: 0; 
-                right: -100%; /* Inicia fora da tela */
+                right: -100%; 
                 width: 70%; 
                 max-width: 300px; 
                 height: 100vh; 
@@ -436,59 +510,78 @@
                 padding: 20px 40px; 
                 box-shadow: var(--shadow); 
                 transition: right 0.5s ease-in-out; 
-                z-index: 1001;
-                /* [NOVO] Garante que os links fiquem visíveis no menu */
-                display: flex;
-                gap: 20px;
+                z-index: 1000; /* Garante que o menu fique na FRENTE */
+                gap: 20px; /* Gap original do perfil.css mobile */
             }
-            .nav-links.active { 
-                right: 0; /* Puxa para dentro da tela */
-            }
+            .nav-links.active { right: 0; }
             .menu-toggle { 
                 display: block; 
+                z-index: 1002; /* Z-index do 900px block */
             }
 
-/* ===== MENU RESPONSIVO ===== */
-@media (max-width: 900px) {
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        right: -100%;
-        background-color: var(--bg-color);
-        width: 250px;
-        box-shadow: var(--shadow);
-        border-radius: 8px;
-        padding: 20px;
-        z-index: 1000;
-    }
+            /* --- INÍCIO DA CORREÇÃO DO LOGO DO CABEÇALHO MOBILE (de comunidade.css) --- */
+            .main-header .container {
+                max-width: none;
+                margin: 0;
+                padding: 0 15px; /* Garante o padding de 15px no mobile */
+                display: flex;
+                align-items: center;
+            }
+            .logo {
+                white-space: normal;
+                line-height: 1.3;
+                margin-right: 10px;
+                max-width: 70%; /* Limita a largura para forçar a quebra */
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 1rem; /* Reseta o font-size do desktop */
+                flex-shrink: 1;  /* Permite encolher */
+                min-width: 0;    /* Permite encolher */
+            }
+            .logo span {
+                font-size: 0.9rem; /* Diminui o texto */
+                white-space: normal; /* Permite quebra de linha no texto */
+                line-height: 1.3;
+            }
+            
+            .logo-img { /* Regra adaptada de #header-logo em comunidade.css */
+                width: 40px; 
+                height: 40px;
+                flex-shrink: 0; 
+                object-fit: contain; 
+                margin-right: 8px; 
+                border-radius: 0; /* Remove o border-radius */
+            }
+            /* --- FIM DA CORREÇÃO DO LOGO DO CABEÇALHO MOBILE --- */
 
-    .nav-links.active {
-        display: flex;
-    }
+            /* ================================================== */
+            /* FIM DA SUBSTITUIÇÃO DO HEADER MOBILE */
+            /* ================================================== */
 
-    .menu-toggle {
-        display: block;
-        color: var(--text-color);
-    }
-}
-
-            /* Layout do Perfil vira 1 coluna */
             .profile-layout {
                 grid-template-columns: 1fr;
-                gap: 30px;
+                gap: 0; 
+                display: block; 
+                padding: 0; 
             }
 
             .profile-nav {
                 padding: 20px;
+                margin-left: 15px; 
+                margin-right: 15px; 
+                margin-bottom: 20px; 
             }
             
             .profile-card {
                 padding: 20px;
             }
             
-            /* [NOVO] Remove margem do último card no mobile */
+            .profile-content {
+                 margin-left: 15px; 
+                 margin-right: 15px; 
+            }
+            
             .profile-content .profile-card:not(:last-child) {
                  margin-bottom: 30px;
             }
@@ -496,8 +589,38 @@
                 margin-bottom: 0;
             }
 
+            /* ================================================== */
+            /* INÍCIO DA CORREÇÃO (Final) */
+            /* ================================================== */
+            
+            /* Esta regra é para o botão "Adicionar Amigo" (não mexer) */
+            .inline-form .btn {
+                padding: 10px 18px; 
+                font-size: 0.8rem; 
+                flex-shrink: 0;
+            }
+            
+            /* Diminui o espaço entre o input e o botão "Copiar" */
+            .input-with-button {
+                gap: 5px; /* Era 10px (na regra geral) */
+            }
 
-            /* Layout do Chat Mobile */
+            /* [ALTERAÇÃO FINAL] Esconde o texto "Copiar" e centraliza o ícone */
+            .input-with-button .btn {
+                font-size: 0;     /* NOVO: Isso esconde o texto "Copiar" */
+                padding: 10px;    /* NOVO: Ajusta o padding para um quadrado */
+                flex-shrink: 0;
+            }
+            
+            /* Força a remoção da margem do ícone (que está no HTML) */
+            .input-with-button .btn i {
+                margin-right: 0 !important;
+            }
+            /* ================================================== */
+            /* FIM DA CORREÇÃO */
+            /* ================================================== */
+
+
             .chat-layout {
                 grid-template-columns: 1fr; 
                 height: 70vh;
@@ -531,8 +654,12 @@
                 padding: 15px;
             }
 
-            .chat-send-form input {
+            .chat-send-form textarea { 
                 padding: 12px 18px;
+            }
+            
+            .chat-send-form button {
+                height: 46px; 
             }
 
             .footer-top {
@@ -541,5 +668,43 @@
             }
             .footer-social {
                 justify-content: center;
+            }
+            body.menu-open {
+                overflow-y: hidden;
+                overflow-x: hidden;
+                position: fixed;
+                width: 100%; 
+            }
+
+            /* ================================================== */
+            /* INÍCIO DAS REGRAS DO RODAPÉ (de comunidade.css) */
+            /* ================================================== */
+            
+            /* Ajustes Finais para o Rodapé no Mobile */
+            
+            /* 1. Devolve o padding lateral SÓ para o container do rodapé */
+            .main-footer .container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            /* 2. Força o logo (que é flex) a se centrar */
+            .footer-about .logo {
+                 justify-content: center;
+                 
+                 /* --- ESTA É A ALTERAÇÃO --- */
+                 /* Faz o logo (display:flex) obedecer o text-align:center do pai */
+                 display: inline-flex; 
+            }
+
+            /* Regras do logo do rodapé (de comunidade.css) */
+            .footer-about .logo-img {
+                height: 35px; /* O original é 40px */
+                width: 35px;
+            }
+
+            .footer-about .logo span {
+                font-size: 1.1rem; /* O original é 1.8rem */
+                line-height: 1.4;
             }
         }

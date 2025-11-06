@@ -25,7 +25,10 @@
 
     <header class="main-header">
         <div class="container">
-            <a href="index.html" class="logo"> <i data-lucide="leaf"></i> Vida Plena</a>
+           <a href="index.html" class="logo">
+    <img src="logo.png" alt="Logo Projeto Vida Plena" class="logo-img">
+    <span>Em Busca de Uma Vida Saudável</span>
+</a>
             <nav class="main-nav" id="main-nav">
                 <ul class="nav-links" id="nav-links">
                     <li><a href="#pilares">Projeto</a></li>
@@ -46,8 +49,7 @@
         <div class="hero-content container hidden">
             <h1>Contra o Sedentarismo e a Desinformação.</h1>
             <p>Este é o portal do nosso projeto de TCC, dedicado a promover um estilo de vida ativo e a combater as fake news na área da saúde.</p>
-            <a href="#pilares" class="btn btn-primary">Conheça Nossos Pilares</a>
-        </div>
+         <a href="#ebook-offer" class="btn btn-primary">Baixar o E-book Grátis</a>
     </section>
 
     <section id="pilares" class="section">
@@ -62,8 +64,41 @@
                 <div class="pillar-item hidden"> <i data-lucide="users" class="icon"></i> <h3>Comunidade e Apoio</h3> <p>Acreditamos na força da comunidade. Incentivamos o apoio de amigos e familiares para criar um ambiente de motivação e suporte mútuo.</p> </div>
             </div>
         </div>
+    </section> <section id="ebook-offer" class="section section-light">
+        <div class="container">
+            <div class="section-header hidden">
+                <h2>Baixe o Guia Oficial do Projeto</h2>
+                <p>O pilar do nosso TCC. Um guia de 50 páginas para combater a desinformação e sair do sedentarismo.</p>
+            </div>
+            <div class="cta-section hidden">
+                <div class="cta-image">
+                    <img src="logo.png" alt="Logo do Projeto Vida Plena" style="padding: 20px; background: none; box-shadow: none;">
+                </div>
+                <div class="cta-content">
+                    <h2>"Em Busca de Uma Vida Saudável"</h2>
+                    <p>Seguindo a estratégia do nosso TCC, oferecemos nosso e-book oficial.</p>
+                    <p>Cadastre-se para baixar o guia completo gratuitamente e ganhe acesso imediato à nossa plataforma de comunidade, artigos e grupos de debate no WhatsApp.</p>
+                    <a href="cadastro.html" class="btn btn-primary" style="margin-top: 20px;" id="btn-download-ebook">
+                        <i data-lucide="download" style="width:18px; margin-right: 8px;"></i>
+                        Quero meu E-book Grátis!
+                    </a>
+                </div>
+            </div>
+        </div>
     </section>
 
+    <section id="sobre-o-projeto" class="section">
+        <div class="container">
+            <div class="section-header hidden">
+                <h2>A Origem do Nosso Projeto</h2>
+            </div>
+            <div class="project-origin-text hidden" style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.1rem; color: var(--text-light);">
+                <p style="margin-bottom: 15px;">O projeto “Em Busca de Uma Vida Saudável” surgiu da observação de como muitas pessoas, principalmente jovens, enfrentam dificuldades para manter hábitos saudáveis no dia a dia. Percebemos que o sedentarismo e a desinformação sobre saúde estão cada vez mais presentes, influenciando negativamente a vida das pessoas.</p>
+                <p style="margin-bottom: 15px;">A partir dessa reflexão, tivemos a ideia de criar um projeto que ajudasse a conscientizar a comunidade sobre a importância de cuidar do corpo e da mente. Nosso objetivo é promover uma vida mais saudável, combatendo o sedentarismo e espalhando informações verdadeiras sobre saúde.</p>
+                <p>Para isso, planejamos ações como palestras e campanhas de caminhada, que incentivam a prática de atividades físicas, a alimentação equilibrada e o acesso a orientações confiáveis, contribuindo assim para o bem-estar e a qualidade de vida de todos.</p>
+            </div>
+        </div>
+    </section>
     <section id="desafios" class="section section-light">
         <div class="container">
             <div class="section-header hidden">
@@ -213,56 +248,120 @@
             </div>
         </div>
     </section>
+
     <section id="evento" class="section section-light">
         <div class="container">
             <div class="section-header hidden">
                 <h2>Nossa Primeira Caminhada e Corrida-Fé Pela Saúde!</h2>
                 <p>Veja os melhores momentos do nosso evento, que uniu dezenas de pessoas em um dia inesquecível de movimento e conscientização.</p>
             </div>
-            <div class="event-layout hidden">
-                <div class="event-main-content">
-                    <div class="event-details">
-                        <h3>Nossa Primeira Caminhada e Corrida-Fé Pela Saúde!</h3>
-                        <ul class="event-meta">
-                            <li><i data-lucide="calendar"></i> <strong>Data:</strong> Domingo, 26 de Outubro de 2025</li>
-                            <li><i data-lucide="map-pin"></i> <strong>Local:</strong> Praça Santo Antônio, Igreja Matriz, Caieiras - SP.</li>
-                            <li><i data-lucide="route"></i> <strong>Percurso:</strong> 7km de Corrida, 3Km de caminhada.</li>
-                        </ul>
-                        <p>Prepare-se para mais caminhada e corrida, próximo grande encontro! Reuniremos famílias, amigos e vizinhos para mais um passo importante contra o sedentarismo. Será um dia repleto de sorrisos, superação e a prova de que juntos somos mais fortes. A participação é gratuita!</p>
-                        <a href="https://chat.whatsapp.com/Fc1O7o2ipnB27v7X8kA4zK?mode=wwt" target="_blank" class="btn btn-primary" style="margin-top: 20px;">
-                            <i data-lucide="users" style="width:18px; margin-right: 8px;"></i>
-                            Inscreva-se no Grupo!
-                        </a>
-                    </div>
+
+            <div class="carousel-container hidden" id="event-carousel-container">
+                <div class="articles-carousel-wrapper">
+                    <div class="articles-carousel" id="event-carousel">
+                        
+                        <img src="evento-kits.jpg" alt="Kits da 1ª Corrida e Caminhada da Fé de Caieiras" class="card" style="padding:0; height: 350px;">
+                        <img src="evento-corrida-1.jpg" alt="Participantes correndo na estrada" class="card" style="padding:0; height: 350px;">
+                        <img src="evento-corrida-2.jpg" alt="Participante correndo durante o percurso" class="card" style="padding:0; height: 350px;">
+                        <video controls muted loop playsinline class="card" style="padding:0; height: 350px; object-fit: cover;" alt="Vídeo da chegada de um participante">
+                            <source src="evento-chegada.mp4" type="video/mp4">
+                            Seu navegador não suporta o vídeo.
+                        </video>
+            
+                        <img src="../imagem-9.jpeg" alt="Corredor sênior participando da corrida" class="card" style="padding:0; height: 350px;">
+                        <img src="../imagem-8.jpeg" alt="Corredoras com moto de apoio ao fundo" class="card" style="padding:0; height: 350px;">
+                        
+                        <video controls muted loop playsinline class="card" style="padding:0; height: 350px; object-fit: cover;" alt="Vídeo de participantes caminhando na rua">
+                            <source src="../video-10.mp4" type="video/mp4">
+                            Seu navegador não suporta o vídeo.
+                        </video>
+                        
+                        <img src="../imagem-1.jpeg" alt="Participante correndo e empurrando um carrinho de bebê" class="card" style="padding:0; height: 350px;">
+                        <img src="../imagem-2.jpeg" alt="Corredor jovem com número 019 acenando" class="card" style="padding:0; height: 350px;">
+                        <img src="../imagem-3.jpeg" alt="Participante caminhando com crianças" class="card" style="padding:0; height: 350px;">
+                        <img src="../imagem-4.jpeg" alt="Corredor com tatuagens durante o percurso" class="card" style="padding:0; height: 350px;">
+                        <img src="../imagem-5.jpeg" alt="Corredor de barba e boné focado na corrida" class="card" style="padding:0; height: 350px;">
+                        <img src="..//imagem-6.jpeg" alt="Grupo de corredores com moto de apoio da GCM/PM" class="card" style="padding:0; height: 350px;">
+                        <img src="../imagem-7.jpeg" alt="Corredor com número 019 fazendo sinal de positivo" class="card" style="padding:0; height: 350px;">
                     
-                    <div class="event-gallery">
-    <img src="evento-kits.jpg" alt="Kits da 1ª Corrida e Caminhada da Fé de Caieiras">
-    
-    <img src="evento-corrida-1.jpg" alt="Participantes correndo na estrada">
-    
-    <img src="evento-corrida-2.jpg" alt="Participante correndo durante o percurso">
-    
-    <video controls muted loop playsinline style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; box-shadow: var(--shadow);" alt="Vídeo da chegada de um participante">
-        <source src="evento-chegada.mp4" type="video/mp4">
-        Seu navegador não suporta o vídeo.
-    </video>
-</div>
                     </div>
-                 <div class="testimonials-container">
-                    <h4>O que os participantes disseram:</h4>
-                    <div class="testimonial-grid">
-                        <div class="testimonial-card">
-                            <p>"A energia do evento foi contagiante! Foi a primeira vez que participei de algo assim e já estou ansioso(a) pela próxima. Me motivou a começar a caminhar todos os dias."</p>
-                            <div class="author">- Ana Silva</div>
-                        </div>
-                        <div class="testimonial-card">
-                            <p>"Excelente organização e uma causa muito nobre. É ótimo ver jovens tão engajados com a saúde da comunidade. Parabéns a toda a equipe do projeto!"</p>
-                            <div class="author">- Carlos Pereira</div>
-                        </div>
-                        <div class="testimonial-card">
-                            <p>"Levei minha família e foi um domingo diferente e muito especial. As crianças adoraram! Uma iniciativa que une as pessoas e promove o bem-estar. Precisamos de mais ações como essa."</p>
-                            <div class="author">- Paulo Oliveira</div>
-                        </div>
+                </div>
+                <button class="carousel-button prev" id="event-carousel-prev" aria-label="Foto anterior"><i data-lucide="chevron-left"></i></button>
+                <button class="carousel-button next" id="event-carousel-next" aria-label="Próxima foto"><i data-lucide="chevron-right"></i></button>
+            </div>
+
+            <div class="event-details-text hidden" style="margin-top: 50px; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
+                <h3 style="font-family: var(--font-title); font-size: 2rem; color: var(--green-dark); margin-bottom: 20px;">Sobre o Evento</h3>
+                <ul class="event-meta" style="list-style: none; margin-bottom: 20px; padding: 0; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                    <li style="display: flex; align-items: center; gap: 10px; font-size: 1.1rem; color: var(--text-light);"><i data-lucide="calendar" style="color: var(--green-light);"></i> <strong>Data:</strong> 26 de Outubro de 2025</li>
+                    <li style="display: flex; align-items: center; gap: 10px; font-size: 1.1rem; color: var(--text-light);"><i data-lucide="map-pin" style="color: var(--green-light);"></i> <strong>Local:</strong> Praça Santo Antônio, Caieiras - SP</li>
+                    <li style="display: flex; align-items: center; gap: 10px; font-size: 1.1rem; color: var(--text-light);"><i data-lucide="route" style="color: var(--green-light);"></i> <strong>Percurso:</strong> 7km de Corrida, 3Km de caminhada</li>
+                </ul>
+            
+                <p>O nosso primeiro evento foi um sucesso de planejamento e execução, provando o poder da comunidade contra o sedentarismo. Começamos os preparativos às 6h da manhã, organizando a estrutura e os kits para os participantes.</p>
+                <p>A largada reuniu famílias, amigos e crianças, e contou com um apoio fundamental para a segurança de todos: tivemos o acompanhamento da <strong>Guarda de Trânsito e da Polícia Militar</strong>, com viaturas e motos durante todo o percurso.</p>
+                <p>Nossa equipe do TCC (nós, os alunos) se dividiu em pontos estratégicos para distribuir água e alimentos, e o evento foi encerrado com a premiação dos 5 primeiros colocados (masculino e feminino) e um feedback extremamente positivo dos participantes.</p>
+                
+                <a href="https://chat.whatsapp.com/Fc1O7o2ipnB27v7X8kA4zK?mode=wwt" target="_blank" class="btn btn-primary" style="margin-top: 20px;">
+                    <i data-lucide="users" style="width:18px; margin-right: 8px;"></i>
+                    Participe do Próximo!
+                </a>
+            </div>
+
+            <style>
+                .sponsors-grid {
+                    gap: 15px !important; /* Ajusta o espaçamento */
+                }
+                .sponsor-name {
+                    font-family: var(--font-body);
+                    font-weight: 600;
+                    color: var(--text-light);
+                    padding: 10px 15px;
+                    background: var(--bg-color);
+                    border: 1px solid var(--border-color);
+                    border-radius: 8px;
+                    font-size: 0.9rem;
+                    transition: all 0.3s;
+                }
+              
+                
+            </style>
+
+            <div class="sponsors-section hidden" style="margin-top: 60px; text-align: center;">
+                <h3 style="font-family: var(--font-title); font-size: 1.5rem; color: var(--text-light); margin-bottom: 30px; border-top: 1px solid var(--border-color); padding-top: 40px;">Nossos Apoiadores</h3>
+                
+                <div class="sponsors-grid" style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center;">
+                    <span class="sponsor-name">Prefeitura de Caieiras</span>
+                    <span class="sponsor-name">RVA Imóveis</span>
+                    <span class="sponsor-name">Minivida</span>
+                    <span class="sponsor-name">Insider Box</span>
+                    <span class="sponsor-name">Vida Legal</span>
+                    <span class="sponsor-name">Don Molina Parrillae Cerveza</span>
+                    <span class="sponsor-name">Buffalo Wings</span>
+                    <span class="sponsor-name">Benvenuti Salgados</span>
+                    <span class="sponsor-name">Carmen Frida</span>
+                    <span class="sponsor-name">Athletica Nutrition</span>
+                    <span class="sponsor-name">Zúrica Contabilidade</span>
+                    <span class="sponsor-name">Cátia Pinheiro Ótica e Visagismo</span>
+                    <span class="sponsor-name">Denise Marquesini Arquitetura</span>
+                    <span class="sponsor-name">Emitá Semijoias</span>
+                    <span class="sponsor-name">Açaí da Praça</span>
+                </div>
+            </div>
+            <div class="testimonials-container" style="margin-top: 60px;">
+                <h4 style="font-family: var(--font-title); font-size: 1.8rem; color: var(--green-dark); text-align: center; margin-bottom: 30px;">O que os participantes disseram:</h4>
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <p>"A energia do evento foi contagiante! Foi a primeira vez que participei de algo assim e já estou ansioso(a) pela próxima. Me motivou a começar a caminhar todos os dias."</p>
+                        <div class="author">- Ana Silva</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"Excelente organização e uma causa muito nobre. É ótimo ver jovens tão engajados com a saúde da comunidade. Parabéns a toda a equipe do projeto!"</p>
+                        <div class="author">- Carlos Pereira</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"Levei minha família e foi um domingo diferente e muito especial. As crianças adoraram! Uma iniciativa que une as pessoas e promove o bem-estar. Precisamos de mais ações como essa."</p>
+                        <div class="author">- Paulo Oliveira</div>
                     </div>
                 </div>
             </div>
@@ -328,7 +427,10 @@
         <div class="container">
             <div class="footer-top">
                 <div class="footer-col footer-about">
-                    <a href="index.html" class="logo"> <i data-lucide="leaf"></i> Vida Plena </a>
+                   <a href="index.html" class="logo">
+    <img src="logo.png" alt="Logo Em Busca de Uma Vida Saudável" class="logo-img">
+    <span>Em Busca de Uma Vida Saudável</span>
+</a>
                     <p>Um projeto de TCC para uma vida mais saudável, combatendo o sedentarismo e a desinformação.</p>
                 </div>
                 <div class="footer-col">
@@ -392,26 +494,24 @@
         const { createClient } = supabase;
         const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        let carouselInitialized = false; 
+        let articleCarouselInitialized = false; 
+        let eventCarouselInitialized = false; // [NOVO]
 
-        function initializeCarousel() {
-            if (carouselInitialized) return; 
+        // --- CARROSSEL DE ARTIGOS ---
+        function initializeArticleCarousel() {
+            if (articleCarouselInitialized) return; 
 
-            const carouselContainer = document.querySelector('.carousel-container');
+            const carouselContainer = document.querySelector('#artigos .carousel-container');
             if (!carouselContainer) return;
 
             const carousel = document.getElementById('articles-carousel');
             const prevButton = document.getElementById('carousel-prev');
             const nextButton = document.getElementById('carousel-next');
 
-            if (!carousel || !prevButton || !nextButton) {
-                console.error("Elementos do carrossel não encontrados.");
-                return;
-            }
+            if (!carousel || !prevButton || !nextButton) return;
 
             let cards = Array.from(carousel.children);
             if (cards.length === 0) {
-                 console.warn("Carrossel não tem cards para inicializar.");
                  prevButton.style.display = 'none';
                  nextButton.style.display = 'none';
                  return;
@@ -438,11 +538,8 @@
                      prevButton.style.display = 'none';
                      nextButton.style.display = 'none';
                      carousel.style.transform = `translateX(0px)`;
-                     if(cards.length < visibleCards) {
-                          carousel.style.justifyContent = 'center';
-                     } else {
-                          carousel.style.justifyContent = 'flex-start';
-                     }
+                     if(cards.length < visibleCards) carousel.style.justifyContent = 'center';
+                     else carousel.style.justifyContent = 'flex-start';
                      return;
                  } else {
                      prevButton.style.display = 'flex';
@@ -470,13 +567,9 @@
                 const maxIndex = Math.max(0, cards.length - visibleCards);
                 if (maxIndex <= 0 && cards.length <= visibleCards) return; 
 
-                if(index > maxIndex) {
-                    currentIndex = 0; // Volta ao início
-                } else if (index < 0) {
-                    currentIndex = maxIndex; // Vai para o fim
-                } else {
-                    currentIndex = index;
-                }
+                if(index > maxIndex) currentIndex = 0; 
+                else if (index < 0) currentIndex = maxIndex;
+                else currentIndex = index;
                 updateCarouselPosition();
             };
 
@@ -512,16 +605,128 @@
              setTimeout(() => updateCarouselPosition(false), 150); 
             startAutoScroll(); 
 
-            carouselInitialized = true; 
+            articleCarouselInitialized = true; 
         }
 
+        // ================================================================
+        // [NOVO] FUNÇÃO PARA O CARROSSEL DO EVENTO
+        // ================================================================
+        function initializeEventCarousel() {
+            if (eventCarouselInitialized) return; 
+
+            const carouselContainer = document.getElementById('event-carousel-container');
+            if (!carouselContainer) return;
+
+            const carousel = document.getElementById('event-carousel');
+            const prevButton = document.getElementById('event-carousel-prev');
+            const nextButton = document.getElementById('event-carousel-next');
+
+            if (!carousel || !prevButton || !nextButton) return;
+
+            let cards = Array.from(carousel.children);
+            if (cards.length === 0) {
+                 prevButton.style.display = 'none';
+                 nextButton.style.display = 'none';
+                 return;
+            }
+
+            let currentIndex = 0;
+            let intervalId;
+
+            const getVisibleCardsCount = () => {
+                const width = window.innerWidth;
+                if (width < 768) return 1;
+                // Mostra 2 fotos lado a lado em telas maiores
+                return 2; 
+            };
+
+            const updateCarouselPosition = (withTransition = true) => {
+                cards = Array.from(carousel.children); 
+                if (cards.length === 0) return;
+
+                const visibleCards = getVisibleCardsCount();
+                const maxIndex = Math.max(0, cards.length - visibleCards);
+
+                if (maxIndex <= 0 && cards.length <= visibleCards) { 
+                     prevButton.style.display = 'none';
+                     nextButton.style.display = 'none';
+                     carousel.style.transform = `translateX(0px)`;
+                     if(cards.length < visibleCards) carousel.style.justifyContent = 'center';
+                     else carousel.style.justifyContent = 'flex-start';
+                     return;
+                 } else {
+                     prevButton.style.display = 'flex';
+                     nextButton.style.display = 'flex';
+                     carousel.style.justifyContent = 'flex-start';
+                 }
+
+                currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
+
+                const cardWidth = cards[0].offsetWidth;
+                const gapStyle = window.getComputedStyle(carousel).gap;
+                const gap = gapStyle ? parseInt(gapStyle) : 30;
+                const offset = currentIndex * (cardWidth + gap);
+
+                carousel.style.transition = withTransition ? 'transform 0.5s ease-in-out' : 'none';
+                carousel.style.transform = `translateX(-${offset}px)`;
+
+                prevButton.disabled = currentIndex === 0;
+                nextButton.disabled = currentIndex === maxIndex;
+            };
+
+            const moveToIndexAndLoop = (index) => {
+                cards = Array.from(carousel.children); 
+                const visibleCards = getVisibleCardsCount();
+                const maxIndex = Math.max(0, cards.length - visibleCards);
+                if (maxIndex <= 0 && cards.length <= visibleCards) return; 
+
+                if(index > maxIndex) currentIndex = 0; 
+                else if (index < 0) currentIndex = maxIndex;
+                else currentIndex = index;
+                updateCarouselPosition();
+            };
+
+            const startAutoScroll = () => {
+                stopAutoScroll(); 
+                const visibleCards = getVisibleCardsCount();
+                if(cards.length > visibleCards) { 
+                    intervalId = setInterval(() => {
+                        moveToIndexAndLoop(currentIndex + 1);
+                    }, 4000); // Um pouco mais rápido para as fotos
+                }
+            };
+
+            const stopAutoScroll = () => clearInterval(intervalId);
+
+            nextButton.addEventListener('click', () => {
+                moveToIndexAndLoop(currentIndex + 1);
+                startAutoScroll(); 
+            });
+
+            prevButton.addEventListener('click', () => {
+                moveToIndexAndLoop(currentIndex - 1);
+                startAutoScroll(); 
+            });
+
+            window.addEventListener('resize', () => {
+                setTimeout(() => updateCarouselPosition(false), 150);
+            });
+
+            carouselContainer.addEventListener('mouseenter', stopAutoScroll);
+            carouselContainer.addEventListener('mouseleave', startAutoScroll);
+
+             setTimeout(() => updateCarouselPosition(false), 150); 
+            startAutoScroll(); 
+
+            eventCarouselInitialized = true; 
+        }
+        // ================================================================
+        // FIM DA FUNÇÃO DO CARROSSEL DO EVENTO
+        // ================================================================
 
         async function fetchAndRenderTopArticles() {
             const carouselElement = document.getElementById('articles-carousel');
-            if (!carouselElement) {
-                console.error('Elemento do carrossel (#articles-carousel) não encontrado.');
-                return;
-            }
+            if (!carouselElement) return;
 
             const { data: articles, error } = await sb
                 .from('community-articles')
@@ -536,7 +741,6 @@
             }
 
             if (!articles || articles.length === 0) {
-                console.log("Nenhum artigo encontrado para destacar.");
                 carouselElement.innerHTML = `<p style="text-align: center; width: 100%; color: var(--text-light);">Nenhum artigo publicado na comunidade ainda.</p>`;
                 return;
             }
@@ -545,33 +749,21 @@
 
             articles.forEach((article, index) => {
                 let categoryText = 'Top Artigo';
-                
-                if (index === 0) {
-                    categoryText = 'Destaque da Comunidade';
-                }
-
-                const imgSrc = article.cover_image_url
-                    ? article.cover_image_url
-                    : 'https://placehold.co/600x400/FBF8F1/285430?text=Artigo'; 
-
+                if (index === 0) categoryText = 'Destaque da Comunidade';
+                const imgSrc = article.cover_image_url || 'https://placehold.co/600x400/FBF8F1/285430?text=Artigo'; 
                 const articleUrl = `comunidade.html?article=${article.id}`; 
                 const articleDescription = article.description ? (article.description.length > 100 ? article.description.substring(0, 100) + '...' : article.description) : 'Acesse a comunidade para ler o artigo.';
 
                 allArticlesHtml += `
                 <article class="card">
                      <img src="${imgSrc}" alt="Capa do artigo ${article.title || ''}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/FBF8F1/285430?text=Artigo';">
-                     
                      <div class="card-content">
                         <span class="category">${categoryText}</span>
                         <h3>${article.title || 'Título Indisponível'}</h3>
                         <p style="font-size: 0.9em; color: var(--text-light); margin-bottom: 15px;">
                            Por: ${article.author_name || 'Usuário Anônimo'} em ${new Date(article.created_at).toLocaleDateString()}
                         </p>
-                        
-                        <p style="margin-bottom: 20px; flex-grow: 1; color: var(--text-light);">
-                            ${articleDescription}
-                        </p>
-                        
+                        <p style="margin-bottom: 20px; flex-grow: 1; color: var(--text-light);">${articleDescription}</p>
                         <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto;">
                             <a href="${articleUrl}" class="read-more-btn" style="margin: 0;">
                                 Ver na Comunidade <i data-lucide="arrow-right" style="width:18px;"></i>
@@ -581,8 +773,7 @@
                             </span>
                         </div>
                      </div>
-                </article>
-                `;
+                </article>`;
             });
 
             carouselElement.innerHTML = allArticlesHtml;
@@ -604,7 +795,7 @@
         }
 
         async function setupNav(session) {
-             const mainNav = document.getElementById('main-nav');
+            const mainNav = document.getElementById('main-nav');
             const navLinks = document.getElementById('nav-links');
             if (!mainNav || !navLinks) return; 
 
@@ -646,11 +837,24 @@
                     });
 
            } else {
-                // ========== BOTÃO LOGIN CORRIGIDO AQUI ==========
-                // Adiciona classes CSS para mostrar/esconder em desktop vs mobile
                 mainNav.insertAdjacentHTML('beforeend', `<a href="login.html" class="btn-nav dynamic-nav-item btn-desktop-login">Login</a>`);
                 navLinks.insertAdjacentHTML('beforeend', `<li class="dynamic-nav-item btn-mobile-login"><a href="login.html" class="btn-nav">Login</a></li>`);
             }
+            
+          const downloadButton = document.getElementById('btn-download-ebook');
+            if (downloadButton) {
+                if (session) {
+                    // LINHA CORRIGIDA: Adicionado "documentos/"
+                    downloadButton.href = 'documentos/Em Busca de Uma Vida Saudáve1.pdf'; 
+                    downloadButton.setAttribute('download', 'Em-Busca-de-Uma-Vida-Saudavel.pdf');
+                } else {
+                    downloadButton.href = 'cadastro.html';
+                  // Esta linha já estava correta
+                  downloadButton.href = 'documentos/Em Busca de Uma Vida Saudáve1.pdf'; 
+                  downloadButton.setAttribute('download', 'Em-Busca-de-Uma-Vida-Saudavel.pdf');  
+                }
+            }
+            
              lucide.createIcons(); 
         }
 
@@ -659,7 +863,8 @@
              setupNav(session); 
              
              await fetchAndRenderTopArticles(); 
-             initializeCarousel(); 
+             initializeArticleCarousel(); 
+             initializeEventCarousel(); // [NOVO] Chamando o novo carrossel
         }
 
         document.addEventListener('DOMContentLoaded', setupPage);
@@ -676,6 +881,9 @@
         const toggleMenu = () => {
             if (!navLinks || !menuToggle) return;
             navLinks.classList.toggle('active');
+            
+            document.body.classList.toggle('menu-open'); // <--- ADICIONADO
+
             const icon = menuToggle.querySelector('i');
             if (icon) {
                  icon.setAttribute('data-lucide', navLinks.classList.contains('active') ? 'x' : 'menu');

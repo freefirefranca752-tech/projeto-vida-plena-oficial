@@ -26,7 +26,10 @@
     
     <header class="main-header">
         <div class="container">
-            <a href="index.html" class="logo"> <i data-lucide="leaf"></i> Vida Plena </a>
+            <a href="index.html" class="logo">
+    <img src="logo.png" alt="Logo Projeto Vida Plena" class="logo-img">
+    <span>Em Busca de Uma Vida Saudável</span>
+</a>
             <nav class="main-nav" id="main-nav">
                 <ul class="nav-links" id="nav-links">
                    
@@ -62,14 +65,14 @@
                 <ul class="profile-nav-links">
                     <li><a href="#conta" class="nav-tab active"><i data-lucide="user"></i> Minha Conta</a></li>
                     <li><a href="#amigos" class="nav-tab"><i data-lucide="users"></i> Amigos</a></li>
-                    <li><a href="#mensagens" class="nav-tab"><i data-lucide="message-square"></i> Mensagens</a></li>
+                    <li><a href="#mensagens" class="nav-tab"><i data-lucide="message-square"></i> Mensagens <span id="messages-count-sidebar" class="notification-count-sidebar"></span></a></li>
                     <li><a href="#conteudos" class="nav-tab"><i data-lucide="layout-grid"></i> Meus Conteúdos</a></li>
                     <li>
                         <a href="#notificacoes" class="nav-tab" id="notifications-tab-link">
                             <i data-lucide="bell"></i> Notificações <span id="notification-count-sidebar" class="notification-count-sidebar"></span>
                         </a>
                     </li>
-                    <li><a href="#preferencias" class="nav-tab"><i data-lucide="sliders-horizontal"></i> Preferências</a></li>
+                   
                     <li><a href="#seguranca" class="nav-tab"><i data-lucide="shield"></i> Segurança</a></li>
                     <li><a href="#excluir" class="nav-tab"><i data-lucide="trash-2"></i> Excluir Conta</a></li>
                     <li style="margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 20px;"><a id="logout-btn"><i data-lucide="log-out"></i> Sair</a></li>
@@ -174,7 +177,7 @@
                                             <button id="cancel-reply-btn"><i data-lucide="x"></i></button>
                                         </div>
                                         <form class="chat-send-form" id="chat-send-form">
-                                            <input type="text" id="chat-message-input" placeholder="Digite sua mensagem..." autocomplete="off">
+                                            <textarea id="chat-message-input" placeholder="Digite sua mensagem..." rows="1"></textarea>
                                             <button type="submit" class="btn">
                                                 <i data-lucide="send"></i>
                                             </button>
@@ -249,7 +252,10 @@
         <div class="container">
             <div class="footer-top">
                 <div class="footer-col footer-about">
-                    <a href="index.html" class="logo"> <i data-lucide="leaf"></i> Vida Plena </a>
+                  <a href="index.html" class="logo">
+    <img src="logo.png" alt="Logo Projeto Vida Plena" class="logo-img">
+    <span>Em busca de uma vida saudavel</span>
+</a>
                     <p style="margin-top: 15px;">Um projeto de TCC para uma vida mais saudável, combatendo o sedentarismo e a desinformação.</p>
                 </div>
                 <div class="footer-col">
@@ -320,6 +326,51 @@
             interval = seconds / 60;
             if (interval > 1) return `há ${Math.floor(interval)} min`;
             return "agora mesmo";
+        }
+
+        // [NOVA FUNÇÃO] Apenas busca a contagem de notificações não lidas
+        async function updateSidebarNotificationCount() {
+            if (!currentUser) return;
+            const { count, error } = await sb.from('notifications')
+                .select('*', { count: 'exact', head: true })
+                .eq('user_id', currentUser.id)
+                .eq('is_read', false);
+                
+            if (error) { console.error("Erro ao buscar contagem de notificações:", error); return; }
+
+            const badgeSidebar = document.getElementById('notification-count-sidebar');
+            if (badgeSidebar) {
+                if (count > 0) {
+                    badgeSidebar.textContent = count;
+                    badgeSidebar.style.display = 'block';
+                } else {
+                    badgeSidebar.style.display = 'none';
+                }
+            }
+        }
+
+        // ==========================================================
+        // [FUNÇÃO CORRIGIDA] Busca a contagem total de mensagens não lidas
+        // ==========================================================
+        async function updateSidebarMessagesCount() {
+            if (!currentUser) return; // Não faz nada se o usuário não estiver carregado
+
+            // Busca a contagem de mensagens onde EU sou o destinatário e is_read = false
+            const { count, error } = await sb.from('messages')
+                .select('*', { count: 'exact', head: true })
+                .eq('receiver_id', currentUser.id)
+                .eq('is_read', false);
+            
+            const badge = document.getElementById('messages-count-sidebar');
+            
+            if (badge && !error) {
+                if (count > 0) {
+                    badge.textContent = count;
+                    badge.style.display = 'block'; // Mostra o contador
+                } else {
+                    badge.style.display = 'none'; // Esconde se for 0
+                }
+            }
         }
 
         function updateChatHeaderStatus(forceStatus = null) {
@@ -396,6 +447,7 @@
                      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'notifications' },
                      (payload) => {
                          updateNotificationBadge(session.user.id);
+                         updateSidebarNotificationCount(); // [MUDANÇA] Atualiza o da barra lateral
                      })
                      .subscribe((status) => {
                           if (status === 'CHANNEL_ERROR') { console.error('Erro no canal de notificações RT:', notificationChannel.error()); }
@@ -892,9 +944,14 @@
                     return;
                 }
 
+                // [MUDANÇA] Alterado o HTML do map para incluir o wrapper e o contador
                 conversationList.innerHTML = data.map(convo => {
                     const avatar = convo.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(convo.full_name || 'U')}`;
                     const displayName = convo.full_name || 'Usuário'; 
+                    
+                    // Assumindo que seu RPC "get_conversations_with_status" retorna "unread_count"
+                    // Se o nome da coluna for outro, altere "convo.unread_count" abaixo.
+                    const unreadCount = convo.unread_count || 0; 
                     
                     return `
                     <div class="chat-conversation-item" 
@@ -902,7 +959,12 @@
                          data-user-name="${displayName}" 
                          data-user-avatar="${avatar}"
                          data-user-last-seen="${convo.last_seen || ''}">
-                        <img src="${avatar}" alt="Avatar" class="chat-conversation-avatar">
+                        
+                        <div class="chat-conversation-avatar-wrapper">
+                            <img src="${avatar}" alt="Avatar" class="chat-conversation-avatar">
+                            <span class="conversation-unread-count" style="${unreadCount > 0 ? 'display: block;' : ''}">${unreadCount}</span>
+                        </div>
+                        
                         <div class="chat-conversation-info">
                             <strong>${displayName}</strong>
                             <p>${convo.last_message || '...'}</p>
@@ -919,6 +981,29 @@
                 const existingConvoItem = document.querySelector(`.chat-conversation-item[data-user-id="${otherUserId}"]`);
                 if(existingConvoItem) {
                     existingConvoItem.classList.add('active');
+                    
+                    // [MUDANÇA] Esconde o contador ao abrir a conversa
+                    const unreadBadge = existingConvoItem.querySelector('.conversation-unread-count');
+                    if (unreadBadge) {
+                        unreadBadge.style.display = 'none';
+                        unreadBadge.textContent = '0';
+                    }
+                    
+                    // ==========================================================
+                    // [ALTERAÇÃO FEITA AQUI] Marca as mensagens como lidas
+                    // ==========================================================
+                    const { error: updateError } = await sb.from('messages')
+                        .update({ is_read: true })
+                        .eq('receiver_id', currentUser.id)
+                        .eq('sender_id', otherUserId)
+                        .eq('is_read', false);
+
+                    if (updateError) {
+                        console.error("Erro ao marcar mensagens como lidas:", updateError);
+                    }
+                    // ==========================================================
+                    // Fim da alteração
+                    // ==========================================================
                 }
 
                 currentChatPartnerId = otherUserId; 
@@ -966,22 +1051,19 @@
                     },
                 });
 
-                // [CORREÇÃO GERAL DE REALTIME]
-                // Um listener único e eficiente para todos os eventos
                 chatChannel
                     .on('postgres_changes', 
                         { 
-                            event: '*', // Ouve INSERT, UPDATE, e DELETE
+                            event: '*', 
                             schema: 'public', 
                             table: 'messages',
-                            // Filtra apenas mensagens DESTA conversa
                             filter: `(sender_id=eq.${currentUser.id} AND receiver_id=eq.${otherUserId}) OR (sender_id=eq.${otherUserId} AND receiver_id=eq.${currentUser.id})`
                         }, 
                         (payload) => {
                             
                             if (payload.eventType === 'INSERT') {
                                 const newMsg = payload.new;
-                                if (!allMessages[newMsg.id]) { // Previne duplicatas
+                                if (!allMessages[newMsg.id]) { 
                                     allMessages[newMsg.id] = newMsg;
                                     renderMessage(newMsg);
                                     scrollToBottom();
@@ -1026,7 +1108,6 @@
                          }
                          if (status === 'CHANNEL_ERROR') {
                              console.error('Erro no canal de chat. Verifique as RLS e a Replicação do Supabase.');
-                             // Se o canal falhar, o chat não será real-time
                          }
                     });
             }
@@ -1049,6 +1130,7 @@
                 });
             }
 
+            // [MUDANÇA] Função createMessageHTML ATUALIZADA
             function createMessageHTML(msg) {
                 const isSent = msg.sender_id === currentUser.id;
                 const authorName = isSent ? 'Você' : (chatHeaderName.textContent || 'Usuário');
@@ -1068,6 +1150,29 @@
                 const editBtn = isSent ? `<button class="btn-edit" title="Editar"><i data-lucide="pencil"></i></button>` : '';
                 const deleteBtn = isSent ? `<button class="btn-delete" title="Excluir"><i data-lucide="trash-2"></i></button>` : '';
 
+                // --- Início da Lógica "Ler Mais" / "Ver Menos" ---
+                const MAX_LENGTH = 500; // Limite de 500 caracteres
+                let contentHtml;
+                
+                // Escapa o HTML de qualquer mensagem
+                const safeFullText = (msg.content || '')
+                    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+                if (msg.content && msg.content.length > MAX_LENGTH) {
+                    const safeShortText = safeFullText.substring(0, MAX_LENGTH);
+
+                    contentHtml = `
+                    <div class="message-content">
+                        <span class="message-short">${safeShortText}...</span>
+                        <span class="message-full">${safeFullText}</span>
+                        <button class="btn-ler-mais">Ler mais</button>
+                        <button class="btn-ver-menos">Ver menos</button>
+                    </div>`;
+                } else {
+                    contentHtml = `<div class="message-content">${safeFullText}</div>`;
+                }
+                // --- Fim da Lógica "Ler Mais" ---
+
                 return `
                 <div class="message-item ${isSent ? 'sent' : 'received'}" id="msg-${msg.id}" data-msg-id="${msg.id}">
                     <div class="message-wrapper">
@@ -1078,8 +1183,7 @@
                         </div>
                         <div class="message-bubble">
                             ${quoteHtml}
-                            <div class="message-content">${msg.content}</div>
-                        </div>
+                            ${contentHtml} </div>
                     </div>
                     ${editedTag}
                 </div>`;
@@ -1098,7 +1202,6 @@
                 });
             }
 
-            // [CORREÇÃO] Envio de Mensagem
             chatSendForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const content = chatMessageInput.value.trim();
@@ -1117,9 +1220,10 @@
                     messageData.parent_message_author_name = (currentReplyMessage.sender_id === currentUser.id) ? 'Você' : (chatHeaderName.textContent || 'Usuário');
                 }
                 
-                // Salva o valor e limpa o input
                 const tempContent = chatMessageInput.value;
                 chatMessageInput.value = ''; 
+                chatMessageInput.style.height = 'auto';
+                
                 hideReplyPreview(); 
 
                 const { data: insertedMsg, error } = await sb.from('messages').insert({
@@ -1133,11 +1237,9 @@
 
                 if (error) {
                     console.error("Erro ao enviar mensagem:", error);
-                    chatMessageInput.value = tempContent; // Restaura a mensagem
+                    chatMessageInput.value = tempContent; 
                     alert("Não foi possível enviar a mensagem.");
                 } else {
-                    // [ADICIONADO] Renderiza a mensagem localmente
-                    // Isso corrige o bug da mensagem não aparecer
                     if (!allMessages[insertedMsg.id]) {
                         allMessages[insertedMsg.id] = insertedMsg;
                         renderMessage(insertedMsg);
@@ -1146,7 +1248,7 @@
                 }
             });
 
-            // [CORREÇÃO] Deletar Mensagem
+            // [MUDANÇA] Listener de clique do chat ATUALIZADO
             chatMessageList.addEventListener('click', async (e) => {
                 const msgElement = e.target.closest('.message-item');
                 if (!msgElement) return;
@@ -1160,8 +1262,6 @@
                         if (error) {
                             alert("Erro ao excluir: " + error.message);
                         } else {
-                            // [ADICIONADO] Remove a mensagem localmente
-                            // Isso corrige o bug da mensagem não sumir
                             msgElement.remove();
                             delete allMessages[msgId];
                         }
@@ -1176,6 +1276,24 @@
                 else if (e.target.closest('.btn-edit')) {
                     showEditForm(msgElement, msg);
                 }
+                
+                // --- Início da Lógica "Ler Mais" / "Ver Menos" ---
+                else if (e.target.closest('.btn-ler-mais')) {
+                    const button = e.target.closest('.btn-ler-mais');
+                    const contentWrapper = button.closest('.message-content');
+                    if (contentWrapper) {
+                        contentWrapper.classList.add('expanded');
+                        scrollToBottom(); // Rola para o fim para garantir que o texto expandido seja visível
+                    }
+                }
+                else if (e.target.closest('.btn-ver-menos')) {
+                    const button = e.target.closest('.btn-ver-menos');
+                    const contentWrapper = button.closest('.message-content');
+                    if (contentWrapper) {
+                        contentWrapper.classList.remove('expanded');
+                    }
+                }
+                // --- Fim da Lógica "Ler Mais" / "Ver Menos" ---
             });
 
             chatMessageList.addEventListener('submit', async (e) => {
@@ -1198,7 +1316,6 @@
                 if (error) {
                     alert('Erro ao salvar edição: ' + error.message);
                 }
-                // Não precisa de update local, o listener de UPDATE vai pegar
             });
             
             function showReplyPreview(msg, authorName) {
@@ -1252,6 +1369,7 @@
                         if (document.getElementById('mensagens-panel').classList.contains('active') === false || 
                             payload.new.sender_id !== currentChatPartnerId) {
                             loadConversations();
+                            updateSidebarMessagesCount(); // [MUDANÇA] Atualiza contador de msg
                         }
                     }
                 )
@@ -1284,7 +1402,6 @@
             
             function updateNotificationBadgeUI(notifications) {
                  const unreadCount = notifications.filter(n => !n.is_read).length;
-                 // Atualiza os dois badges
                 const badgeSidebar = document.getElementById('notification-count-sidebar');
                 const badgeHeader = document.getElementById('notification-badge');
                 
@@ -1305,7 +1422,6 @@
                 const { error } = await sb.from('notifications').update({ is_read: true }).eq('user_id', currentUser.id).eq('is_read', false);
                 if (!error) {
                     document.querySelectorAll('.notification-item.unread').forEach(item => item.classList.remove('unread'));
-                    // Limpa os dois badges
                     const badgeSidebar = document.getElementById('notification-count-sidebar');
                     const badgeHeader = document.getElementById('notification-badge');
                     if(badgeSidebar) badgeSidebar.style.display = 'none';
@@ -1437,14 +1553,34 @@
             // --- CARREGAMENTO INICIAL ---
             await loadProfile();
             await loadMyArticles();
-            await loadNotifications(); 
+            // [MUDANÇA] Chamamos as novas funções de contagem
+            await updateSidebarNotificationCount(); 
+            await updateSidebarMessagesCount();
+            // [MUDANÇA] Removemos loadNotifications() daqui para não marcar como lido ao carregar a pág.
             await setupPresence(); 
+
+            if (chatMessageInput) {
+                chatMessageInput.addEventListener('input', () => {
+                    chatMessageInput.style.height = 'auto'; 
+                    let scrollHeight = chatMessageInput.scrollHeight;
+                    const maxHeight = 150; 
+                    
+                    if (scrollHeight > maxHeight) {
+                        chatMessageInput.style.height = maxHeight + 'px';
+                        chatMessageInput.style.overflowY = 'auto';
+                    } else {
+                        chatMessageInput.style.height = scrollHeight + 'px';
+                        chatMessageInput.style.overflowY = 'hidden';
+                    }
+                });
+            }
+            
             lucide.createIcons();
         }
 
         initializePage();
     </script>
     <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="perfil.css">
+    <link rel="stylesheet" href="../perfil.css">
 </body>
 </html>

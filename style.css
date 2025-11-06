@@ -1,4 +1,4 @@
-  :root {
+:root {
             --green-dark: #285430;
             --green-light: #5F8D4E;
             --accent-color: #E5B80B;
@@ -14,7 +14,10 @@
             --border-color: #eee;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html { 
+            scroll-behavior: smooth; 
+            overflow-x: hidden; /* <--- 1. ADICIONE ESTA LINHA (A MAIS IMPORTANTE) */
+        }
         body {
             font-family: var(--font-body);
             /* [ALTERADO] Cor de fundo principal agora é --bg-soft */
@@ -24,44 +27,10 @@
             /* [ALTERADO] Fundo sutil do perfil.html adicionado */
             background-image: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23285430" fill-opacity="0.04"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>');
             transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden; /* <--- 2. ESTA LINHA DEVE ESTAR AQUI (DA ÚLTIMA VEZ) */
         }
 
-        /* --- MODO ESCURO --- */
-        body.dark-mode {
-            --bg-color: #121212;
-            --bg-soft: #1e1e1e;
-            --text-color: #e0e0e0;
-            --text-light: #a0a0a0;
-            --border-color: #333333;
-            --shadow: 0 4px 20px rgba(0,0,0,0.25);
-            /* [ALTERADO] Fundo sutil do perfil.html (dark) adicionado */
-            background-image: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%235F8D4E" fill-opacity="0.06"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>');
-        }
-        body.dark-mode .main-header { background-color: rgba(30, 30, 30, 0.85); border-bottom: 1px solid var(--border-color); }
-        body.dark-mode .logo { color: var(--green-light); }
-        body.dark-mode .nav-links a:hover { color: var(--green-light); }
-        body.dark-mode .section-header h2, body.dark-mode .challenge-item h3, body.dark-mode .event-details h3, body.dark-mode .testimonials-container h4, body.dark-mode .cta-content h2, body.dark-mode .team-member-card h4 { color: var(--green-light); }
-        
-        /* [ALTERADO] O body agora é --bg-soft, então os cards devem ser --bg-color */
-        body.dark-mode .challenge-item, body.dark-mode .action-item, body.dark-mode .card, body.dark-mode .swot-quadrant, body.dark-mode .ishikawa-mobile-category, body.dark-mode .pert-step, body.dark-mode .research-card, body.dark-mode .priority-card, body.dark-mode .testimonial-card, body.dark-mode .team-member-card .photo-placeholder, body.dark-mode .cta-image { 
-            background-color: var(--bg-soft); /* Era --bg-soft, mas como o body mudou, talvez devesse ser --bg-color? */
-            background-color: var(--bg-color); /* Correção: Deve ser --bg-color para contrastar com o body */
-        }
-        
-        body.dark-mode .challenge-item { border-top-color: var(--green-light); }
-        body.dark-mode .modal-content { background-color: var(--bg-soft); }
-        body.dark-mode .btn-nav { background-color: var(--green-light); border-color: var(--green-light); color: var(--bg-soft); }
-        body.dark-mode .nav-links a[href="perfil.html"] { color: var(--green-light) !important; }
-        body.dark-mode .section-light {
-             /* [REMOVIDO] background-image */
-             background-color: var(--bg-soft); /* Garante que a cor de seção clara seja a correta no dark mode */
-        }
-        body.dark-mode .tab-btn { color: var(--text-light); border-color: var(--text-light); }
-        body.dark-mode .tab-btn:hover { background-color: var(--green-light); color: var(--white); }
-        body.dark-mode .tab-btn.active { background-color: var(--green-dark); border-color: var(--green-dark); color: var(--white); }
-        body.dark-mode .priority-card { border-top-color: var(--green-dark) !important; }
-
-
+       
         /* --- ESTILO PARA AVATAR E NOTIFICAÇÕES --- */
         .nav-avatar {
             width: 40px;
@@ -85,17 +54,46 @@
         }
         .nav-profile-link {
             position: relative;
-        }
+        white-space: nowrap; /* <--- ADICIONE ESTA LINHA */
+}
 
         /* --- RESTANTE DO CSS --- */
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
         .hidden { opacity: 0; filter: blur(5px); transform: translateY(20px); transition: all 1s; }
         .show { opacity: 1; filter: blur(0); transform: translateY(0); }
         .main-header { box-shadow: 0 2px 8px rgba(0,0,0,0.05); padding: 1rem 0; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.85); border-bottom: 1px solid #eee; transition: background-color 0.3s, border-color 0.3s; }
-        .main-header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: var(--font-title); font-size: 1.8rem; font-weight: 700; color: var(--green-dark); text-decoration: none; display: flex; align-items: center; gap: 8px; }
-        .main-nav { display: flex; align-items: center; gap: 20px; }
-        .nav-links { display: flex; gap: 35px; list-style: none; align-items: center; }
+    .main-header .container { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    max-width: none;  /* <--- MUDADO */
+    margin: 0;        /* <--- ADICIONADO */
+    padding: 0 20px;  /* <--- MUDADO (para dar espaço nas bordas) */
+}
+        
+        /* CSS do logo da última correção */
+        .logo {
+            color: var(--green-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center; /* Alinha verticalmente a imagem e o texto */
+            gap: 12px; 
+        }
+       .logo-img {
+    height: 40px; /* <--- MUDADO */
+    width: 40px;  /* <--- MUDADO */
+    object-fit: contain;
+}
+.logo span {
+    font-family: var(--font-title);
+    font-size: 1.8rem; /* <--- MUDADO (para ficar igual ao 1.8rem da comunidade) */
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+        .main-nav { display: flex; align-items: center; gap: 20px; margin-left: 40px;}
+       .nav-links { display: flex; gap: 50px; list-style: none; align-items: center; }
         .nav-links a { color: var(--text-color); text-decoration: none; font-weight: 600; transition: color 0.3s ease; position: relative; padding-bottom: 5px; }
         .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 50%; transform: translateX(-50%); background-color: var(--accent-color); transition: width 0.3s ease-in-out; }
         .nav-links a:hover::after { width: 100%; }
@@ -277,35 +275,84 @@
         #back-to-top:hover { background-color: var(--green-light); transform: scale(1.1); }
         @media (min-width: 992px) { .ishikawa-container { display: block; } .ishikawa-mobile-view { display: none; } }
         @media (max-width: 992px) { .pillars-grid, .challenge-grid, .actions-grid, .viability-grid, .cta-section, .footer-top, .event-main-content { grid-template-columns: 1fr; } .footer-top, .cta-content, .event-details { text-align: center; } .event-details .event-meta { justify-content: center; } .event-details .event-meta li { justify-content: center;} .social-buttons, .footer-social { justify-content: center; } .cta-image { display: none; } .swot-grid { grid-template-columns: 1fr; } }
-        @media (max-width: 768px) { .hero h1 { font-size: 2.5rem; } .section-header h2 { font-size: 2.2rem; } .main-nav { flex-grow: 1; justify-content: flex-end; } .nav-links { position: fixed; top: 0; right: -100%; width: 70%; max-width: 300px; height: 100vh; background-color: var(--bg-soft); flex-direction: column; align-items: flex-start; justify-content: center; padding: 20px 40px; box-shadow: var(--shadow); transition: right 0.5s ease-in-out; } .nav-links.active { right: 0; } .menu-toggle { display: block; } .pert-path { flex-direction: column; } .pert-arrow { transform: rotate(90deg); } .articles-carousel .card { width: 100%; } .carousel-button { display: none; } }
+        
+        @media (max-width: 768px) { 
+            .hero h1 { font-size: 2.5rem; } 
+            .section-header h2 { font-size: 2.2rem; } 
+            .main-nav { flex-grow: 1; justify-content: flex-end; } 
+            .nav-links { position: fixed; top: 0; right: -100%; width: 70%; max-width: 300px; height: 100vh; background-color: var(--bg-soft); flex-direction: column; align-items: flex-start; justify-content: center; padding: 20px 40px; box-shadow: var(--shadow); transition: right 0.5s ease-in-out; } .nav-links.active { right: 0; } 
+            .menu-toggle { display: block; } 
+            .pert-path { flex-direction: column; } 
+            .pert-arrow { transform: rotate(90deg); } 
+            .articles-carousel .card { width: 100%; } 
+            .carousel-button { display: none; } 
+
+            /* [ALTERAÇÃO 2] REGRAS NOVAS PARA AJUSTAR O LOGO NO MOBILE */
+            .logo {
+                gap: 10px; /* Diminui o espaço entre a imagem e o texto */
+            }
+            .logo-img {
+                height: 40px; /* Diminui a imagem */
+                width: 40px;
+            }
+            .logo span {
+                white-space: normal; /* PERMITE o texto quebrar a linha */
+                font-size: 1rem;   /* Diminui um pouco a fonte */
+                line-height: 1.3;
+            }
+        }
+
         @media (max-width: 1200px) { .carousel-button.prev { left: 10px; } .carousel-button.next { right: 10px; } }
         @media (max-width: 992px) and (min-width: 769px) { .articles-carousel .card { width: calc((100% - 30px) / 2); } }
    /* --- CORREÇÃO BOTÃO LOGIN DUPLICADO --- */
         .btn-desktop-login { display: block; }
         .btn-mobile-login { display: none; }
 
-       /* ===== MENU RESPONSIVO ===== */
+ /* ===== MENU RESPONSIVO (corrigido com slide) ===== */
 @media (max-width: 900px) {
     .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: 0;
         right: -100%;
-        background-color: var(--bg-color);
         width: 250px;
-        box-shadow: var(--shadow);
-        border-radius: 8px;
-        padding: 20px;
-        z-index: 1000;
+        height: 100vh;
+        background-color: var(--bg-color);
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 30px;
+        gap: 20px;
+        transition: right 0.3s ease-in-out;
+        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+        z-index: 9998; /* <--- CORREÇÃO: Valor bem alto */
     }
 
     .nav-links.active {
-        display: flex;
+        right: 0; /* aparece deslizando */
     }
 
     .menu-toggle {
         display: block;
-        color: var(--text-color);
+        cursor: pointer;
+        background: none;
+        border: none;
+        z-index: 9999; /* <--- CORREÇÃO: Valor mais alto ainda */
     }
+}
+/* Classe que o JavaScript vai adicionar ao <body> 
+  para travar o scroll vertical 
+*/
+body.menu-open {
+    overflow-y: hidden;
+    overflow-x: hidden; /* <--- 3. ESTA LINHA TAMBÉM DEVE ESTAR AQUI (DA ÚLTIMA VEZ) */
+    position: fixed; /* Isso ajuda a travar em alguns celulares, como iOS */
+    width: 100%;
+}/* --- Ajuste Tamanho Logo Rodapé --- */
+.footer-about .logo .logo-img {
+    height: 35px; /* Tamanho menor para rodapé */
+    width: 35px;
+}
+
+.footer-about .logo span {
+    font-size: 1.3rem;   /* Tamanho de fonte mais apropriado para rodapé */
 }

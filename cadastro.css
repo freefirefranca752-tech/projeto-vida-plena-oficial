@@ -25,23 +25,6 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* --- MODO ESCURO --- */
-        body.dark-mode {
-            --bg-soft: #121212;
-            --bg-color: #1e1e1e;
-            --text-color: #e0e0e0;
-            --text-light: #a0a0e0;
-            --border-color: #333333;
-            --shadow: 0 4px 20px rgba(0,0,0,0.25);
-            background-image: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%235F8D4E" fill-opacity="0.06"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>');
-        }
-        body.dark-mode .main-header, body.dark-mode .auth-container { background-color: var(--bg-color); }
-        body.dark-mode .main-header { border-bottom: 1px solid var(--border-color); }
-        body.dark-mode .logo, body.dark-mode .auth-panel-form h1, body.dark-mode .auth-logo { color: var(--green-light); }
-        body.dark-mode .nav-links a:hover { color: var(--green-light); }
-        body.dark-mode .input-with-icon input { background-color: #333; border-color: var(--border-color); color: var(--text-color); }
-        body.dark-mode .social-login .btn { background: #333; color: var(--text-color); }
-        body.dark-mode .menu-toggle { color: var(--text-color); }
         
         main { flex: 1; display: flex; justify-content: center; align-items: center; padding: 50px 20px; }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
@@ -165,32 +148,55 @@
                 display: block;
             }
             /* ===== MENU RESPONSIVO ===== */
-@media (max-width: 900px) {
+/* Correção de Posicionamento e Z-Index no Mobile (900px ou 768px) */
+@media (max-width: 900px) { /* Use a media query que for mais relevante no seu código */
+    
+    .main-nav { 
+        /* Mantém o botão no canto direito */
+        flex-grow: 1; 
+        justify-content: flex-end; 
+    } 
+
     .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
+        /* [CRUCIAL] Muda para posição fixa na tela */
+        position: fixed; 
+        top: 0; 
         right: -100%;
-        background-color: var(--bg-color);
-        width: 250px;
+        width: 70%; 
+        max-width: 300px; 
+        
+        /* [CRUCIAL] Ocupa a altura total da tela visível */
+        height: 100vh; 
+        
+        /* [CRUCIAL] Fica acima de TUDO na página */
+        z-index: 1001; 
+        
+        background-color: var(--white); /* ou var(--bg-soft) */
         box-shadow: var(--shadow);
-        border-radius: 8px;
-        padding: 20px;
-        z-index: 1000;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start; /* Alinha os links no topo (melhor para menus grandes) */
+        padding: 80px 40px 20px; /* Adiciona padding no topo para passar o header */
+        gap: 25px;
+        transition: right 0.5s ease-in-out;
     }
 
     .nav-links.active {
-        display: flex;
+        right: 0;
     }
-
+    
     .menu-toggle {
         display: block;
-        color: var(--text-color);
+        z-index: 1002; /* Sempre acima do painel do menu */
     }
+   * [ADICIONADO] Classe para travar o scroll do body 
+*/
+body.menu-open {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    position: fixed;
+    width: 100%; 
 }
 
-            body.dark-mode .nav-links {
-                background-color: var(--bg-color); 
-            }
+        
         }

@@ -1,4 +1,4 @@
- :root {
+:root {
             --green-dark: #285430;
             --green-light: #5F8D4E;
             --accent-color: #E5B80B;
@@ -15,79 +15,73 @@
             --shadow-hover: 0 10px 30px rgba(0,0,0,0.12);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        
+        /* Esta é a regra que impede de arrastar para o lado */
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden; 
+        }
         body {
             font-family: var(--font-body);
             background-color: var(--bg-soft);
             color: var(--text-color);
             line-height: 1.7;
             transition: background-color 0.3s, color 0.3s;
+            
+            /* --- ESTA É A CORREÇÃO --- */
+            /* Aplicando também ao body para garantir o bloqueio */
+            overflow-x: hidden;
         }
-
-        /* --- MODO ESCURO --- */
-        body.dark-mode {
-            --bg-soft: #121212;
-            --bg-color: #1e1e1e;
-            --text-color: #e0e0e0;
-            --text-light: #a0a0a0;
-            --border-color: #333333;
-            --shadow: 0 4px 20px rgba(0,0,0,0.25);
-        }
-        body.dark-mode .main-header { background-color: rgba(30, 30, 30, 0.85); border-bottom: 1px solid var(--border-color); }
-        body.dark-mode .logo { color: var(--green-light); }
-        body.dark-mode .nav-links a:hover { color: var(--green-light); }
-        body.dark-mode .page-header { background-color: #1e1e1e; }
-        body.dark-mode .tab-btn { color: var(--text-light); border-color: var(--text-light); }
-        body.dark-mode .tab-btn:hover { background-color: var(--green-light); color: var(--white); }
-        body.dark-mode .tab-btn.active { background-color: var(--green-dark); border-color: var(--green-dark); color: var(--white); }
-        body.dark-mode .article-card, body.dark-mode .modal-content, body.dark-mode .ebook-card, body.dark-mode .forum-topic, body.dark-mode .comment { background-color: var(--bg-color); }
-        body.dark-mode .article-card h3 a, body.dark-mode .forum-topic h3 a { color: var(--green-light); }
-        body.dark-mode .form-group input, body.dark-mode .form-group textarea, body.dark-mode .comment-form input, body.dark-mode .edit-comment-form input { background-color: #333; border-color: var(--border-color); color: var(--text-color); }
-        body.dark-mode .nav-links a[href="perfil.html"] { color: var(--green-light) !important; }
-        body.dark-mode .action-btn.active { color: var(--green-light); }
-        body.dark-mode .action-btn.liked { color: var(--green-light) !important; }
-        body.dark-mode .comment.highlight { background-color: #2a2a2a; }
-        body.dark-mode .comment-quote { background-color: #333; }
-        body.dark-mode .comment-quote-author { color: var(--green-light); }
-        body.dark-mode .comment-action-btn.delete:hover { color: var(--danger-color); }
-        body.dark-mode .btn-secondary { background-color: #444; color: var(--text-color); border-color: #555; }
-        body.dark-mode .btn-secondary:hover { background-color: #555; }
-        body.dark-mode .ebook-card img, body.dark-mode .article-cover { background-color: #333; border-color: var(--border-color); }
-        body.dark-mode .article-description { color: var(--text-color); }
-        
-        body.dark-mode .search-bar-container input { background-color: #333; border-color: var(--border-color); color: var(--text-color); }
-        body.dark-mode .search-result-item { background-color: var(--bg-color); }
-        body.dark-mode .search-result-item:hover { background-color: #2c2c2c; }
-        body.dark-mode .result-type-badge { background-color: var(--green-dark); color: var(--white); }
-        body.dark-mode .pagination-controls .page-btn { background-color: var(--bg-color); border-color: var(--border-color); color: var(--text-light); }
-        body.dark-mode .pagination-controls .page-btn:hover { background-color: #333; }
-        body.dark-mode .pagination-controls .page-btn.active { background-color: var(--green-light); border-color: var(--green-light); color: var(--white); }
-        body.dark-mode .report-btn:hover { color: var(--danger-color); } /* [NOVO] */
-
-
         /* --- ESTILO PARA AVATAR E NOTIFICAÇÕES --- */
         .nav-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--green-light); margin-left: 8px; }
         .notification-badge { background-color: var(--accent-color); color: var(--text-color); font-size: 0.7rem; font-weight: 700; border-radius: 50%; padding: 2px 6px; position: absolute; top: -5px; right: 35px; display: none; }
         .nav-profile-link { position: relative; }
-
         .action-btn.active, .action-btn.active:hover { color: var(--green-dark); font-weight: bold; }
         .action-btn.liked { color: var(--green-dark); font-weight: bold; }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
         .btn { padding: 14px 35px; border-radius: 50px; text-decoration: none; font-weight: 700; transition: transform 0.3s ease, box-shadow 0.3s ease; display: inline-block; border: none; cursor: pointer; font-size: 1rem; text-align: center;}
         .btn-primary { background-color: var(--accent-color); color: var(--text-color); }
         .btn-primary:hover { background-color: #d4a70a; transform: translateY(-2px); }
-
-        /* --- ESTILOS DE BOTÕES (EDITAR/EXCLUIR) --- */
+        /* --- ESTILOS DE BOTÕES (EDITAR/EXCLUIR) */
         .btn-secondary { background-color: #eee; color: var(--text-color); border: 1px solid #ccc; }
         .btn-secondary:hover { background-color: #ddd; transform: translateY(-2px); }
         .btn-danger { background-color: var(--danger-color); color: var(--white); }
         .btn-danger:hover { background-color: #8b1e1e; transform: translateY(-2px); }
         .btn-icon { padding: 10px 12px; font-size: 0.8em; line-height: 1; }
         .btn-icon i { width: 16px; height: 16px; margin: 0; vertical-align: middle; }
-
+        
+        /* --- ESTILOS DO CABEÇALHO (DESKTOP) --- */
         .main-header { box-shadow: 0 2px 8px rgba(0,0,0,0.05); padding: 1rem 0; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.85); border-bottom: 1px solid #eee; transition: background-color 0.3s, border-color 0.3s;}
-        .main-header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: var(--font-title); font-size: 1.8rem; font-weight: 700; color: var(--green-dark); text-decoration: none; display: flex; align-items: center; gap: 8px; white-space: nowrap; margin-right: 60px; }
+        .main-header .container { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            /* Regras de alinhamento do desktop */
+            max-width: none;
+            margin: 0;
+            padding: 0 20px;
+        }
+        .logo { 
+            font-family: var(--font-title); 
+            font-size: 1.8rem; 
+            font-weight: 700; 
+            color: var(--green-dark); 
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            white-space: nowrap; 
+            margin-right: 40px; 
+        }
+        #header-logo {
+            height: 40px;
+            width: 40px; 
+            margin-right: 8px;
+            border-radius: 50%; /* Mantém o logo do header redondo */
+            
+            /* --- ESTA É A CORREÇÃO --- */
+            object-fit: contain; /* Era 'cover', o que causava a distorção */
+        }
         .main-nav { display: flex; align-items: center; }
         .nav-links { display: flex; gap: 35px; list-style: none; align-items: center; }
         .nav-links a { color: var(--text-color); text-decoration: none; font-weight: 600; transition: color 0.3s ease; position: relative; padding-bottom: 5px; white-space: nowrap; }
@@ -95,7 +89,42 @@
         .nav-links a:hover::after { width: 100%; }
         .nav-links a:hover { color: var(--green-dark); }
         .menu-toggle { display: none; cursor: pointer; background: none; border: none; z-index: 1001; }
-        .main-footer { background: var(--green-dark); color: rgba(255, 255, 255, 0.7); padding: 60px 0 0; margin-top: 80px; }
+        
+        /* ================================================== */
+        /* --- INÍCIO DA CORREÇÃO (Logo do Rodapé - perfil.css) --- */
+        /* ================================================== */
+        
+        /* Regras globais para a imagem e texto do logo (faltantes) */
+        .logo-img {
+            height: 40px;
+            width: 40px;
+            object-fit: contain;
+        }
+
+        .logo span {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            white-space: nowrap; 
+        }
+        
+        /* Regras específicas para o logo DENTRO do rodapé */
+        .footer-about .logo-img {
+            height: 35px; 
+            width: 35px;
+        }
+
+        .footer-about .logo span {
+            font-size: 1.1rem; 
+            line-height: 1.4;
+        }
+
+        /* ================================================== */
+        /* --- INÍCIO DO RODAPÉ (Copiado do perfil.css) --- */
+        /* ================================================== */
+        
+        .main-footer { background: var(--green-dark); color: rgba(255, 255, 255, 0.7); padding: 60px 0 0; }
         .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px; }
         .footer-about .logo { color: var(--white); margin-bottom: 15px; }
         .footer-col h4 { font-family: var(--font-title); color: var(--white); font-size: 1.2rem; margin-bottom: 15px; }
@@ -106,11 +135,15 @@
         .footer-social a { color: rgba(255, 255, 255, 0.7); transition: color 0.3s; }
         .footer-social a:hover { color: var(--white); }
         .footer-bottom { text-align: center; padding: 20px 0; border-top: 1px solid rgba(255,255,255,0.2); font-size: 0.9rem; }
+        
+        /* ================================================== */
+        /* --- FIM DO RODAPÉ --- */
+        /* ================================================== */
+
         .page-header { padding: 80px 0; background-color: var(--green-dark); color: var(--white); text-align: center; transition: background-color 0.3s; }
         .page-header h1 { font-family: var(--font-title); font-size: 3rem; }
         .page-header p { font-size: 1.2rem; max-width: 600px; margin: 10px auto 0; opacity: 0.9; }
         .community-content { padding: 80px 0; }
-        
         .search-bar-container {
             margin-bottom: 40px;
             position: relative;
@@ -139,7 +172,6 @@
             width: 20px;
             height: 20px;
         }
-
         .tabs-nav { display: flex; justify-content: center; gap: 20px; margin-bottom: 50px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
         .tab-btn { padding: 12px 30px; font-family: var(--font-title); font-size: 1.1rem; font-weight: 600; border: 2px solid var(--green-light); background-color: transparent; color: var(--green-light); border-radius: 50px; cursor: pointer; transition: all 0.3s ease; }
         .tab-btn:hover { background-color: var(--green-light); color: var(--white); }
@@ -159,21 +191,19 @@
         .form-group input[type="file"] { padding: 10px; border: 1px dashed #ccc; background-color: #f9f9f9; cursor: pointer;}
         .modal-content[data-mode="edit-article"] .form-group-file { display: none; }
         .modal-content[data-mode="edit-article"] .form-group-cover-file { display: none; }
-        
-        #feedback-message, #topic-feedback-message, #ebook-feedback-message, #message-feedback-message, #report-feedback-message { 
-            text-align: center; padding: 12px; border-radius: 8px; 
-            margin-top: 20px; display: none; font-weight: 600; 
+        #feedback-message, #topic-feedback-message, #ebook-feedback-message, #message-feedback-message, #report-feedback-message {
+            text-align: center; padding: 12px; border-radius: 8px;
+            margin-top: 20px; display: none; font-weight: 600;
         }
-        #feedback-message.success, #topic-feedback-message.success, #ebook-feedback-message.success, #message-feedback-message.success, #report-feedback-message.success { 
-            background-color: #d1e7dd; color: #0f5132; 
+        #feedback-message.success, #topic-feedback-message.success, #ebook-feedback-message.success, #message-feedback-message.success, #report-feedback-message.success {
+            background-color: #d1e7dd; color: #0f5132;
         }
-        #feedback-message.error, #topic-feedback-message.error, #ebook-feedback-message.error, #message-feedback-message.error, #report-feedback-message.error { 
-            background-color: #f8d7da; color: #842029; 
+        #feedback-message.error, #topic-feedback-message.error, #ebook-feedback-message.error, #message-feedback-message.error, #report-feedback-message.error {
+            background-color: #f8d7da; color: #842029;
         }
-        #feedback-message.info, #topic-feedback-message.info, #ebook-feedback-message.info, #message-feedback-message.info, #report-feedback-message.info { 
-            background-color: #cff4fc; color: #055160; 
+        #feedback-message.info, #topic-feedback-message.info, #ebook-feedback-message.info, #message-feedback-message.info, #report-feedback-message.info {
+            background-color: #cff4fc; color: #055160;
         }
-
         .articles-feed h2, .content-section h2 { font-family: var(--font-title); font-size: 2.2rem; color: var(--green-dark); margin-bottom: 30px; text-align: center;}
         .article-card { background: var(--white); border-radius: 15px; box-shadow: var(--shadow); margin-bottom: 30px; padding: 25px; transition: box-shadow 0.3s ease; }
         .article-card:hover { box-shadow: var(--shadow-hover); }
@@ -187,7 +217,6 @@
         .action-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 600; color: var(--text-light); transition: color 0.3s ease; font-size: 0.9rem;}
         .action-btn:hover { color: var(--green-dark); }
         .action-btn i { width: 18px; height: 18px; }
-        
         /* [NOVO] Estilo Botão Denunciar */
         .report-btn {
             background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px;
@@ -197,11 +226,9 @@
         .report-btn:hover { color: var(--danger-color); }
         .report-btn i { width: 18px; height: 18px; }
         /* Fim [NOVO] */
-
         .article-admin-actions { margin-left: auto; display: flex; gap: 10px; }
         .article-admin-actions .btn-icon { padding: 8px 10px; }
         .article-admin-actions .btn-icon i { width: 16px; height: 16px; }
-
         .comments-section { margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-color); display: none; }
         .comments-list { padding-left: 10px; max-height: 450px; overflow-y: auto; padding-right: 10px; }
         .comment { display: flex; gap: 10px; margin-bottom: 15px; border-radius: 8px; transition: background-color 0.5s; }
@@ -217,7 +244,6 @@
         .comment-action-btn { font-size: 0.8rem; font-weight: 600; color: var(--text-light); cursor: pointer; background: none; border: none; padding: 0; }
         .comment-action-btn:hover { text-decoration: underline; }
         .comment-action-btn.delete:hover { color: var(--danger-color); }
-        
         /* [NOVO] Botão Denunciar em Comentários */
         .comment-action-btn.report-comment-btn {
             margin-left: auto;
@@ -227,7 +253,6 @@
             text-decoration: none;
         }
         /* Fim [NOVO] */
-
         .edit-comment-form { margin-top: 10px; }
         .edit-comment-form input { width: 100%; font-size: 0.9rem; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 8px; }
         .edit-comment-form button { padding: 8px 12px !important; font-size: 0.8rem !important; margin-right: 5px; }
@@ -236,7 +261,6 @@
         .comment-form input { flex-grow: 1; font-size: 0.9rem; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
         .comment-form button { padding: 10px 15px !important; font-size: 0.9rem !important; }
         .reply-form-container { margin-top: 10px; padding-left: 42px; }
-
         .ebook-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .ebook-card { text-align: center; background: var(--white); padding: 20px; border-radius: 15px; box-shadow: var(--shadow); }
         .ebook-card img { width: 100%; height: 250px; object-fit: contain; border-radius: 8px; margin-bottom: 15px; background-color: var(--bg-soft); border: 1px solid var(--border-color); }
@@ -244,7 +268,6 @@
         .ebook-card p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 20px; }
         .ebook-actions { display: flex; gap: 10px; justify-content: center; margin-top: 15px; }
         .ebook-actions .btn-icon { padding: 10px 12px; font-size: 0.8em; line-height: 1; }
-
         .forum-list { display: flex; flex-direction: column; gap: 20px; }
         .forum-topic { display: flex; align-items: center; gap: 20px; background: var(--white); padding: 20px; border-radius: 15px; box-shadow: var(--shadow); transition: box-shadow 0.3s ease; }
         .forum-topic:hover { box-shadow: var(--shadow-hover); }
@@ -254,7 +277,6 @@
         .forum-meta { font-size: 0.9rem; color: var(--text-light); }
         .topic-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; flex-shrink: 0; }
         .topic-actions .btn { padding: 10px 15px; font-size: 0.9em; }
-
         .pagination-controls {
             display: flex;
             justify-content: center;
@@ -287,7 +309,6 @@
             opacity: 0.5;
             cursor: not-allowed;
         }
-        
         #search-results-container {
             display: none; /* Escondido por padrão */
         }
@@ -338,7 +359,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
-            -webkit-line-clamp: 2; 
+            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
         }
         .result-type-badge {
@@ -350,51 +371,133 @@
             padding: 5px 12px;
             border-radius: 50px;
         }
-
+        
+        /* 8. Media Queries - Responsividade */
+        
+        @media (max-width: 992px) {
+            /* --- REGRA DO RODAPÉ (perfil.css) --- */
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
         @media (max-width: 768px) {
-            .nav-links { position: fixed; top: 0; right: -100%; width: 70%; max-width: 300px; height: 100vh; background-color: var(--bg-soft); flex-direction: column; align-items: flex-start; justify-content: center; padding: 20px 40px; box-shadow: var(--shadow); transition: right 0.5s ease-in-out; }
+            
+            /* Correção do Menu (z-index) */
+            .nav-links { 
+                position: fixed; 
+                top: 0; 
+                right: -100%; 
+                width: 70%; 
+                max-width: 300px; 
+                height: 100vh; 
+                background-color: var(--bg-soft); 
+                flex-direction: column; 
+                align-items: flex-start; 
+                justify-content: center; 
+                padding: 20px 40px; 
+                box-shadow: var(--shadow); 
+                transition: right 0.5s ease-in-out; 
+                z-index: 1000; /* Garante que o menu fique na FRENTE */
+            }
             .nav-links.active { right: 0; }
             .menu-toggle { display: block; }
-            /* ===== MENU RESPONSIVO ===== */
-@media (max-width: 900px) {
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        right: -100%;
-        background-color: var(--bg-color);
-        width: 250px;
-        box-shadow: var(--shadow);
-        border-radius: 8px;
-        padding: 20px;
-        z-index: 1000;
-    }
 
-    .nav-links.active {
-        display: flex;
-    }
-
-    .menu-toggle {
-        display: block;
-        color: var(--text-color);
-    }
-}
-
-            .page-header h1 { font-size: 2.5rem; }
+            /* --- ESTA É A MUDANÇA (SCROLL DO MODAL) --- */
+            .modal-content {
+                max-height: 90vh; /* Limita a altura a 90% da tela */
+                overflow-y: auto; /* Adiciona scroll vertical se o conteúdo for maior */
+            }
+            /* --- FIM DA MUDANÇA --- */
+            
+            .page-header h1 { 
+                font-size: 2rem;
+                line-height: 1.2;
+                word-break: break-word; 
+            }
             .tabs-nav { flex-wrap: wrap; gap: 10px; }
             .tab-btn { padding: 10px 20px; font-size: 1rem; }
-            .footer-top { grid-template-columns: 1fr; text-align: center; }
-            .footer-social { justify-content: center; }
+            
+            /* ================================================== */
+            /* --- INÍCIO DO RODAPÉ (Media Query 768px - perfil.css) --- */
+            /* ================================================== */
+            
+            .footer-top {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .footer-social {
+                justify-content: center;
+            }
+            
+            /* Ajustes Finais para o Rodapé no Mobile */
+                
+            /* 1. Devolve o padding lateral SÓ para o container do rodapé */
+            .main-footer .container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            /* 2. Força o logo (que é flex) a se centrar */
+            .footer-about .logo {
+                 justify-content: center;
+                 
+                 /* --- ESTA É A MUDANÇA --- */
+                 /* Faz o logo (display:flex) respeitar o text-align:center do pai */
+                 display: inline-flex; 
+            }
+            
+             /* ================================================== */
+             /* --- FIM DO RODAPÉ (Media Query 768px) --- */
+             /* ================================================== */
+            
             .forum-topic { flex-direction: column; align-items: stretch; text-align: center; }
             .topic-actions { margin-top: 15px; margin-left: 0; justify-content: center; width: 100%; }
             .topic-actions .btn { margin-top: 0; flex-grow: 1; }
             .topic-actions .btn-icon { flex-grow: 0; }
             .article-admin-actions { margin-left: 0; justify-content: flex-end; }
-            
             .search-bar-container input { padding: 12px 15px 12px 45px; font-size: 1rem; }
             .search-bar-container .search-icon { left: 15px; }
             .pagination-controls .page-btn { min-width: 35px; height: 35px; padding: 5px; font-size: 0.9rem; }
             .search-result-item { flex-direction: column; align-items: flex-start; }
             .result-type-badge { margin-top: 10px; }
+            
+            /* --- INÍCIO DA CORREÇÃO DO LOGO DO CABEÇALHO MOBILE --- */
+            /* Estas regras substituem as regras erradas de antes */
+            
+            .main-header .container {
+                max-width: none;
+                margin: 0;
+                padding: 0 15px; /* Garante o padding de 15px no mobile */
+                display: flex;
+                align-items: center;
+            }
+            .logo {
+                white-space: normal;
+                line-height: 1.3;
+                margin-right: 10px;
+                max-width: 70%; /* Limita a largura para forçar a quebra */
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 1rem; /* Reseta o font-size do desktop */
+                flex-shrink: 1;  /* Permite encolher */
+                min-width: 0;    /* Permite encolher */
+            }
+            /* Esta regra SÓ afeta o texto do logo */
+            .logo span {
+                font-size: 0.9rem; /* Diminui o texto */
+                white-space: normal; /* Permite quebra de linha no texto */
+            }
+            #header-logo {
+                width: 40px; /* Tamanho do ícone no mobile */
+                height: 40px;
+                flex-shrink: 0; /* Impede o ícone de encolher */
+                object-fit: contain; /* Garante que o ícone apareça */
+                margin-right: 8px; /* Espaço entre ícone e texto */
+                border-radius: 0; /* Remove o border-radius (como na imagem) */
+            }
+            
+            /* --- FIM DA CORREÇÃO DO LOGO DO CABEÇALHO MOBILE --- */
         }
+        /* Fim do media query */
