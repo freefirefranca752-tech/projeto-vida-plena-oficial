@@ -24,16 +24,16 @@
             --border-color: #eee;
             --danger-color: #a72626;
             --warning-color: #E5B80B;
-            --info-color: #0284c7; /* [NOVO] Cor para Usuários Ativos */
+            --info-color: #0284c7; 
             --font-title: 'Poppins', sans-serif;
             --font-body: 'Lato', sans-serif;
             --shadow: 0 4px 20px rgba(0,0,0,0.07);
         }
         
-        /* [NOVO] Propriedades CSS para animar o gráfico */
         @property --p-articles{ syntax: '<number>'; inherits: true; initial-value: 0; }
         @property --p-ebooks{ syntax: '<number>'; inherits: true; initial-value: 0; }
         @property --p-topics{ syntax: '<number>'; inherits: true; initial-value: 0; }
+        @property --bar-value { syntax: '<number>'; inherits: true; initial-value: 0; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -393,14 +393,14 @@
             font-weight: 600;
             padding: 8px;
             border-radius: 5px;
-            transition: background-color: 0.3s;
+            transition:background-color 0.3s;
         }
         .user-content-list-item:hover {
             background-color: #eee;
         }
         
         /* ================================================================ */
-        /* [MUDANÇA] ESTILOS DO DASHBOARD (CARDS E GRÁFICO DONUT)         */
+        /* ESTILOS DO DASHBOARD (CARDS E GRÁFICO DONUT)         */
         /* ================================================================ */
         .dashboard-grid {
             display: grid;
@@ -528,6 +528,239 @@
         /* FIM DOS ESTILOS DO DASHBOARD                                   */
         /* ================================================================ */
         
+        /* --- Estilos Novas Métricas --- */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .metric-item {
+            text-align: center;
+            background: var(--bg-soft);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .metric-item i {
+            width: 32px;
+            height: 32px;
+            color: var(--green-dark);
+            margin-bottom: 10px;
+        }
+        .metric-item span {
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: var(--font-title);
+            color: var(--text-color);
+            display: block;
+            line-height: 1.2;
+        }
+        .metric-item p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+        body.dark-mode .metric-item {
+            background: var(--bg-color); /* No dark mode, o card fica mais escuro */
+        }
+        body.dark-mode .metric-item span {
+            color: var(--text-color);
+        }
+
+        /* --- Estilos Gráfico de Barras --- */
+        .bar-chart-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 25px;
+        }
+        .bar-chart-item {
+            display: grid;
+            grid-template-columns: 120px 1fr 40px;
+            align-items: center;
+            gap: 15px;
+        }
+        .bar-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-align: right;
+        }
+        .bar-wrapper {
+            background-color: var(--bg-soft);
+            border-radius: 6px;
+            overflow: hidden;
+            height: 20px;
+        }
+        .bar {
+            height: 100%;
+            width: calc(var(--bar-value) * 1%); 
+            background-color: var(--green-light);
+            border-radius: 6px;
+            transition: width 1.5s ease-out;
+        }
+        #stat-bar-users { background-color: var(--info-color); }
+        #stat-bar-articles { background-color: var(--green-dark); }
+        #stat-bar-ebooks { background-color: var(--accent-color); }
+
+        .bar-value {
+            font-weight: 700;
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+        }
+        
+        /* --- Estilos do Arquivo --- */
+        .archive-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+            align-items: flex-start;
+        }
+        .archive-menu {
+            background-color: var(--bg-color);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            padding: 20px;
+            position: sticky;
+            top: 40px; /* Distância do topo */
+        }
+        .archive-menu h3 {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            color: var(--green-dark);
+            margin-bottom: 20px;
+        }
+        .archive-year {
+            margin-bottom: 15px;
+        }
+        .archive-year-header {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .archive-year-header i {
+            transition: transform 0.3s;
+        }
+        .archive-year.open .archive-year-header i {
+            transform: rotate(90deg);
+        }
+        .archive-month-list {
+            list-style: none;
+            padding-left: 10px;
+            margin-top: 10px;
+            border-left: 2px solid var(--border-color);
+            display: none; /* Começa fechado */
+        }
+        .archive-year.open .archive-month-list {
+            display: block;
+        }
+        .archive-month-list li {
+            margin-bottom: 5px;
+        }
+        .archive-month-btn {
+            background: none;
+            border: none;
+            padding: 8px 12px;
+            width: 100%;
+            text-align: left;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-light);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .archive-month-btn:hover {
+            background-color: var(--bg-soft);
+            color: var(--text-color);
+        }
+        .archive-month-btn.active {
+            background-color: var(--green-light);
+            color: var(--white);
+        }
+        .archive-month-btn .month-total {
+            font-size: 0.8em;
+            font-weight: 400;
+            opacity: 0.7;
+        }
+        
+        .archive-results .admin-card {
+             box-shadow: none;
+             padding: 0;
+        }
+        .archive-results-header {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--bg-soft);
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        .archive-results-header h2 {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            color: var(--green-dark);
+            margin-bottom: 15px;
+        }
+        .archive-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            text-align: center;
+        }
+        .archive-summary-item span {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: var(--font-title);
+            color: var(--text-color);
+            display: block;
+        }
+        .archive-summary-item p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .archive-daily-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .archive-daily-table th, 
+        .archive-daily-table td {
+            text-align: center;
+            padding: 10px 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .archive-daily-table th {
+            font-size: 0.9rem;
+        }
+        .archive-daily-table td.day-cell {
+            font-weight: 700;
+            font-family: var(--font-title);
+            width: 60px;
+        }
+        .archive-daily-table td.highlight-max {
+            background-color: #e0fdf4;
+            color: var(--green-dark);
+            font-weight: 700;
+        }
+        .archive-daily-table td.highlight-min {
+            background-color: #fef0f0;
+            color: var(--danger-color);
+        }
+        .archive-daily-table td.no-activity {
+            color: #ccc;
+        }
+        
+        /* Correção do erro de digitação da última vez */
+        .user-content-list-item:hover {
+            background-color: #eee;
+        }
     </style>
 </head>
 <body>
@@ -549,6 +782,13 @@
                     <span id="reports-badge" class="admin-badge">0</span>
                 </a>
             </li>
+            
+            <li>
+                <a href="#arquivo" class="nav-tab">
+                    <i data-lucide="archive"></i> Arquivo
+                </a>
+            </li>
+            
             <li><a href="index.html" target="_blank"><i data-lucide="home"></i> Ver Site</a></li>
             <li><a id="logout-btn"><i data-lucide="log-out"></i> Sair</a></li>
         </ul>
@@ -623,6 +863,60 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="admin-card" style="margin-top: 30px;">
+                <h3>Métricas Detalhadas</h3>
+                <div class="metrics-grid">
+                    <div class="metric-item">
+                        <i data-lucide="message-square"></i>
+                        <span id="stat-total-comments">...</span>
+                        <p>Total de Comentários</p>
+                    </div>
+                    <div class="metric-item">
+                        <i data-lucide="send"></i>
+                        <span id="stat-total-messages">...</span>
+                        <p>Total de Mensagens</p>
+                    </div>
+                    <div class="metric-item">
+                        <i data-lucide="user-plus"></i>
+                        <span id="stat-new-users-today">...</span>
+                        <p>Novos Usuários (Hoje)</p>
+                    </div>
+                    <div class="metric-item">
+                        <i data-lucide="users"></i>
+                        <span id="stat-total-friendships">...</span>
+                        <p>Total de Amizades</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="admin-card" style="margin-top: 30px;">
+                <h3>Crescimento (Últimos 7 dias)</h3>
+                <div class="bar-chart-container" id="weekly-growth-chart">
+                    <div class="bar-chart-item">
+                        <div class="bar-label">Novos Usuários</div>
+                        <div class="bar-wrapper">
+                            <div class="bar" id="stat-bar-users" style="--bar-value: 0;"></div>
+                        </div>
+                        <div class="bar-value" id="stat-value-users">0</div>
+                    </div>
+                    <div class="bar-chart-item">
+                        <div class="bar-label">Novos Artigos</div>
+                        <div class="bar-wrapper">
+                            <div class="bar" id="stat-bar-articles" style="--bar-value: 0;"></div>
+                        </div>
+                        <div class="bar-value" id="stat-value-articles">0</div>
+                    </div>
+                    <div class="bar-chart-item">
+                        <div class="bar-label">Novos E-books</div>
+                        <div class="bar-wrapper">
+                            <div class="bar" id="stat-bar-ebooks" style="--bar-value: 0;"></div>
+                        </div>
+                        <div class="bar-value" id="stat-value-ebooks">0</div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div id="usuarios-panel" class="admin-panel">
             <div class="admin-header">
@@ -750,7 +1044,34 @@
                 </table>
             </div>
         </div>
-        </main>
+        
+        <div id="arquivo-panel" class="admin-panel">
+            <div class="admin-header">
+                <h1>Arquivo de Resultados</h1>
+            </div>
+            
+            <div class="archive-layout">
+                <aside class="archive-menu" id="archive-menu-container">
+                    <h3>Navegar por Data</h3>
+                    <div id="archive-menu-content">
+                        <p>Carregando histórico...</p>
+                    </div>
+                </aside>
+                
+                <section class="archive-results">
+                    <div class="admin-card">
+                        <div id="archive-results-content">
+                            <p style="text-align: center; padding: 40px 0; color: var(--text-light);">
+                                <i data-lucide="archive" style="width: 48px; height: 48px; margin-bottom: 10px;"></i><br>
+                                Selecione um mês no menu ao lado para ver os dados.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        
+    </main>
 
     <div id="edit-user-modal" class="modal-overlay">
         <div class="modal-content">
@@ -809,6 +1130,11 @@
         let presenceChannel = null; 
         let onlineUsers = new Set(); 
         let allProfilesCache = []; 
+        
+        const MONTH_NAMES = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+        
+        // [NOVO] Cache para os dados do arquivo (evita refazer o client-side)
+        let archiveDataCache = null; 
 
         function formatTimeAgo(dateString) {
             if (!dateString) return 'Offline';
@@ -889,7 +1215,10 @@
         });
         
         logoutBtn.addEventListener('click', async () => {
-             if (presenceChannel) await presenceChannel.unsubscribe();
+             if (presenceChannel) {
+                 await presenceChannel.untrack(); // Avisa que o admin saiu
+                 await presenceChannel.unsubscribe();
+             }
              await sb.auth.signOut();
              window.location.href = 'index.html';
         });
@@ -916,61 +1245,114 @@
                 case 'denuncias-panel':
                     await loadReports();
                     break;
+                case 'arquivo-panel':
+                    await loadArchiveMenu();
+                    break;
             }
         }
 
-        // [MUDANÇA] Função de Analytics atualizada
+        // Função de Analytics atualizada com Gráfico Semanal
         async function loadDashboardStats() {
             
+            // IDs dos Cards Principais
             const userStatEl = document.getElementById('stat-total-users');
-            const activeUserStatEl = document.getElementById('stat-active-users'); // [NOVO]
+            const activeUserStatEl = document.getElementById('stat-active-users');
             const articleStatEl = document.getElementById('stat-total-articles');
             const ebookStatEl = document.getElementById('stat-total-ebooks');
             const reportStatEl = document.getElementById('stat-total-reports');
+            
+            // IDs do Gráfico Donut
             const donutChart = document.getElementById('content-distribution-chart');
             const legendArticles = document.getElementById('chart-value-articles');
             const legendEbooks = document.getElementById('chart-value-ebooks');
             const legendTopics = document.getElementById('chart-value-topics');
 
-            // Coloca "..." enquanto carrega
-            userStatEl.textContent = '...';
-            activeUserStatEl.textContent = '...'; // [NOVO]
-            articleStatEl.textContent = '...';
-            ebookStatEl.textContent = '...';
-            reportStatEl.textContent = '...';
-            legendArticles.textContent = '...';
-            legendEbooks.textContent = '...';
-            legendTopics.textContent = '...';
+            // IDs das Métricas Detalhadas
+            const commentsStatEl = document.getElementById('stat-total-comments');
+            const messagesStatEl = document.getElementById('stat-total-messages');
+            const newUsersStatEl = document.getElementById('stat-new-users-today');
+            const friendsStatEl = document.getElementById('stat-total-friendships');
+
+            // IDs do Gráfico de Barras
+            const statBarUsers = document.getElementById('stat-bar-users');
+            const statValueUsers = document.getElementById('stat-value-users');
+            const statBarArticles = document.getElementById('stat-bar-articles');
+            const statValueArticles = document.getElementById('stat-value-articles');
+            const statBarEbooks = document.getElementById('stat-bar-ebooks');
+            const statValueEbooks = document.getElementById('stat-value-ebooks');
+
+            // Coloca "..." em todos enquanto carrega
+            [userStatEl, activeUserStatEl, articleStatEl, ebookStatEl, reportStatEl, 
+             legendArticles, legendEbooks, legendTopics, commentsStatEl, messagesStatEl, 
+             newUsersStatEl, friendsStatEl, statValueUsers, statValueArticles, statValueEbooks
+            ].forEach(el => {
+                if (el) el.textContent = '...';
+            });
+             
+            // Define o início do dia de hoje (para o filtro "Novos Usuários")
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const todayISO = today.toISOString();
+            
+            // Define data de 7 dias atrás
+            const sevenDaysAgo = new Date();
+            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+            sevenDaysAgo.setHours(0, 0, 0, 0);
+            const sevenDaysAgoISO = sevenDaysAgo.toISOString();
 
             try {
+                // Adicionamos mais queries ao Promise.all
                 const [
                     { count: userCount, error: userError },
                     { count: articleCount, error: articleError },
                     { count: ebookCount, error: ebookError },
                     { count: reportCount, error: reportError },
-                    { count: topicCount, error: topicError }
+                    { count: topicCount, error: topicError },
+                    { count: commentCount, error: commentError },
+                    { count: messageCount, error: messageError },
+                    { count: newUsersTodayCount, error: newUsersError }, // Renomeado
+                    { count: friendshipCount, error: friendshipError },
+                    
+                    // 3 Queries para o Gráfico de Barras
+                    { count: newUsersWeekCount, error: newUsersWeekError },
+                    { count: newArticlesWeekCount, error: newArticlesWeekError },
+                    { count: newEbooksWeekCount, error: newEbooksWeekError }
+
                 ] = await Promise.all([
                     sb.from('profiles').select('*', { count: 'exact', head: true }),
                     sb.from('community-articles').select('*', { count: 'exact', head: true }),
                     sb.from('ebooks').select('*', { count: 'exact', head: true }),
                     sb.from('reports').select('*', { count: 'exact', head: true }).eq('status', 'new'),
-                    sb.from('forum_topics').select('*', { count: 'exact', head: true })
+                    sb.from('forum_topics').select('*', { count: 'exact', head: true }),
+                    // Novas queries:
+                    sb.from('comments').select('*', { count: 'exact', head: true }),
+                    sb.from('messages').select('*', { count: 'exact', head: true }),
+                    sb.from('profiles').select('*', { count: 'exact', head: true }).gte('created_at', todayISO),
+                    sb.from('friendships').select('*', { count: 'exact', head: true }).eq('status', 'accepted'),
+                    
+                    // 3 Queries para o Gráfico de Barras
+                    sb.from('profiles').select('*', { count: 'exact', head: true }).gte('created_at', sevenDaysAgoISO),
+                    sb.from('community-articles').select('*', { count: 'exact', head: true }).gte('created_at', sevenDaysAgoISO),
+                    sb.from('ebooks').select('*', { count: 'exact', head: true }).gte('created_at', sevenDaysAgoISO)
                 ]);
                 
+                // Tratamento de erros
                 if (userError) console.error("Erro ao contar usuários:", userError.message);
                 if (articleError) console.error("Erro ao contar artigos:", articleError.message);
-                if (ebookError) console.error("Erro ao contar ebooks:", ebookError.message);
-                if (reportError) console.error("Erro ao contar denúncias:", reportError.message);
-                if (topicError) console.error("Erro ao contar tópicos:", topicError.message);
                 
                 // 1. Atualiza os Stat Cards
                 userStatEl.textContent = userCount ?? 0;
                 articleStatEl.textContent = articleCount ?? 0;
                 ebookStatEl.textContent = ebookCount ?? 0;
                 reportStatEl.textContent = reportCount ?? 0;
-                // activeUserStatEl será atualizado pelo setupPresence()
+                
+                // 2. Atualiza as Novas Métricas
+                commentsStatEl.textContent = commentCount ?? 0;
+                messagesStatEl.textContent = messageCount ?? 0;
+                newUsersStatEl.textContent = newUsersTodayCount ?? 0;
+                friendsStatEl.textContent = friendshipCount ?? 0;
 
-                // 2. Atualiza o Gráfico Donut
+                // 3. Atualiza o Gráfico Donut
                 const ac = articleCount || 0;
                 const ec = ebookCount || 0;
                 const tc = topicCount || 0;
@@ -982,7 +1364,6 @@
                 const topicPercent = (tc / safeTotal) * 100;
 
                 if (donutChart) {
-                    // Adiciona um pequeno delay para a animação do CSS funcionar
                     setTimeout(() => {
                         donutChart.style.setProperty('--p-articles', articlePercent);
                         donutChart.style.setProperty('--p-ebooks', ebookPercent);
@@ -992,11 +1373,34 @@
                 legendArticles.textContent = `${ac} (${articlePercent.toFixed(0)}%)`;
                 legendEbooks.textContent = `${ec} (${ebookPercent.toFixed(0)}%)`;
                 legendTopics.textContent = `${tc} (${topicPercent.toFixed(0)}%)`;
+
+                // 4. Atualiza o Gráfico de Barras
+                const usersWeek = newUsersWeekCount ?? 0;
+                const articlesWeek = newArticlesWeekCount ?? 0;
+                const ebooksWeek = newEbooksWeekCount ?? 0;
+                
+                statValueUsers.textContent = usersWeek;
+                statValueArticles.textContent = articlesWeek;
+                statValueEbooks.textContent = ebooksWeek;
+                
+                // Achar o valor máximo para a escala (mínimo de 10 para ter visual)
+                const maxGrowth = Math.max(usersWeek, articlesWeek, ebooksWeek, 10); 
+                
+                if (statBarUsers) {
+                    setTimeout(() => {
+                        statBarUsers.style.setProperty('--bar-value', (usersWeek / maxGrowth) * 100);
+                        statBarArticles.style.setProperty('--bar-value', (articlesWeek / maxGrowth) * 100);
+                        statBarEbooks.style.setProperty('--bar-value', (ebooksWeek / maxGrowth) * 100);
+                    }, 100);
+                }
                 
             } catch (error) {
                 console.error("Erro geral ao buscar estatísticas:", error);
                 userStatEl.textContent = 'Erro';
             }
+
+            // Adiciona a renderização dos ícones das novas métricas
+            lucide.createIcons();
         }
 
         // USUÁRIOS
@@ -1049,12 +1453,13 @@
             `).join('');
         }
         
-        // [MUDANÇA] setupPresence agora atualiza o card do Dashboard
+        // Função setupPresence corrigida (da última alteração)
         async function setupPresence() {
             const activeUserStatEl = document.getElementById('stat-active-users');
             if (activeUserStatEl) activeUserStatEl.textContent = '0'; // Valor inicial
+            
+            presenceChannel = sb.channel('user-presence');
 
-            presenceChannel = sb.channel('admin-presence');
             presenceChannel
                 .on('presence', { event: 'sync' }, () => {
                     onlineUsers.clear();
@@ -1064,20 +1469,27 @@
                             onlineUsers.add(presence.user_id);
                         });
                     }
-                    if (activeUserStatEl) activeUserStatEl.textContent = onlineUsers.size; // Atualiza o card
+                    if (activeUserStatEl) activeUserStatEl.textContent = onlineUsers.size; 
                     renderUserStatus(); 
                 })
                 .on('presence', { event: 'join' }, ({ key, newPresences }) => {
                     newPresences.forEach(p => onlineUsers.add(p.user_id));
-                    if (activeUserStatEl) activeUserStatEl.textContent = onlineUsers.size; // Atualiza o card
+                    if (activeUserStatEl) activeUserStatEl.textContent = onlineUsers.size; 
                     renderUserStatus();
                 })
                 .on('presence', { event: 'leave' }, ({ key, leftPresences }) => {
                     leftPresences.forEach(p => onlineUsers.delete(p.user_id));
-                    if (activeUserStatEl) activeUserStatEl.textContent = onlineUsers.size; // Atualiza o card
+                    if (activeUserStatEl) activeUserStatEl.textContent = onlineUsers.size; 
                     renderUserStatus(); 
                 })
-                .subscribe();
+                .subscribe(async (status) => {
+                    if (status === 'SUBSCRIBED') {
+                        await presenceChannel.track({ 
+                            user_id: currentUser.id, // currentUser é definido na função init()
+                            online_at: new Date().toISOString() 
+                        });
+                    }
+                });
         }
 
         function renderUserStatus() {
@@ -1220,6 +1632,8 @@
             updateReportsBadge();
             lucide.createIcons();
         }
+        
+        // renderReports agora inclui o novo botão
         function renderReports(reports) {
             const tableBody = document.querySelector('#reports-table tbody');
              if (reports.length === 0) { 
@@ -1228,6 +1642,20 @@
              }
             tableBody.innerHTML = reports.map(report => {
                 const reporterName = report.reporter?.full_name || report.reporter?.email || '<i>Usuário deletado</i>';
+                
+                // Lógica do botão de exclusão de conteúdo
+                let deleteContentBtnHtml = '';
+                if (report.content_type === 'article' || report.content_type === 'ebook' || report.content_type === 'topic' || report.content_type === 'comment') {
+                    deleteContentBtnHtml = `
+                        <button class="btn-icon btn-delete delete-reported-content-btn" 
+                                data-id="${report.content_id}" 
+                                data-type="${report.content_type}" 
+                                title="Excluir Conteúdo Reportado (${report.content_type})">
+                            <i data-lucide="shield-x"></i>
+                        </button>
+                    `;
+                }
+                
                 return `
                 <tr data-report-id="${report.id}">
                     <td><span class="report-status-badge ${report.status}">${report.status}</span></td>
@@ -1244,7 +1672,9 @@
                             `<button class="btn-icon btn-resolve resolve-report-btn" data-id="${report.id}" title="Marcar como Resolvido"><i data-lucide="check-check"></i></button>` : 
                             ''
                         }
-                        <button class="btn-icon btn-delete delete-report-btn" data-id="${report.id}" title="Excluir denúncia"><i data-lucide="trash-2"></i></button>
+                        ${deleteContentBtnHtml}
+                        
+                        <button class="btn-icon btn-delete delete-report-btn" data-id="${report.id}" title="Excluir denúncia (manter conteúdo)"><i data-lucide="trash-2"></i></button>
                     </td>
                 </tr>
             `}).join('');
@@ -1292,6 +1722,125 @@
         
         // --- 4. LÓGICA DE AÇÕES (DELETAR, EDITAR) ---
         
+        // Funções de exclusão refatoradas
+        
+        async function handleDeleteArticle(articleId) {
+            if (confirm('Tem certeza que quer excluir este artigo? Esta ação é permanente e também deletará os arquivos do armazenamento.')) {
+                try {
+                    const { data: article, error: fetchError } = await sb.from('community-articles')
+                        .select('pdfUrl, cover_image_url')
+                        .eq('id', articleId)
+                        .single();
+
+                    if (fetchError) {
+                        alert(`Erro ao buscar dados do artigo: ${fetchError.message}\nO registro do banco será deletado mesmo assim.`);
+                    }
+
+                    if (article) {
+                        let filesToDelete = [];
+                        if (article.pdfUrl) {
+                            try {
+                                const pdfPath = new URL(article.pdfUrl).pathname.split('/community-articles/')[1];
+                                if(pdfPath) filesToDelete.push(pdfPath);
+                            } catch(e) { console.warn('URL do PDF inválida', e); }
+                        }
+                        if (article.cover_image_url) {
+                            try {
+                                const coverPath = new URL(article.cover_image_url).pathname.split('/community-articles/')[1];
+                                if(coverPath) filesToDelete.push(coverPath);
+                            } catch(e) { console.warn('URL da Capa inválida', e); }
+                        }
+
+                        if (filesToDelete.length > 0) {
+                            const { error: storageError } = await sb.storage.from('community-articles').remove(filesToDelete);
+                            if (storageError && storageError.message !== 'The resource was not found') {
+                                alert(`Aviso: Erro ao deletar arquivos do storage: ${storageError.message}. O registro do banco será deletado mesmo assim.`);
+                            }
+                        }
+                    }
+
+                    const { error: dbError } = await sb.from('community-articles').delete().eq('id', articleId);
+                    if (dbError) throw dbError;
+
+                    alert('Artigo deletado com sucesso.');
+                    // Realtime fará a atualização
+
+                } catch (error) {
+                    console.error("Erro no processo de exclusão de artigo:", error);
+                    alert(`Erro ao excluir: ${error.message}`);
+                }
+            }
+        }
+        
+        async function handleDeleteEbook(ebookId) {
+            if (confirm('Tem certeza que quer excluir este e-book? Esta ação é permanente e também deletará os arquivos do armazenamento.')) {
+                try {
+                    const { data: ebook, error: fetchError } = await sb.from('ebooks')
+                        .select('pdf_url, cover_image_url')
+                        .eq('id', ebookId)
+                        .single();
+
+                    if (fetchError) {
+                        alert(`Erro ao buscar dados do e-book: ${fetchError.message}\nO registro do banco será deletado mesmo assim.`);
+                    }
+
+                    if (ebook) {
+                        let filesToDelete = [];
+                        if (ebook.pdf_url) {
+                            try {
+                                const pdfPath = new URL(ebook.pdf_url).pathname.split('/ebooks/')[1];
+                                if(pdfPath) filesToDelete.push(pdfPath);
+                            } catch(e) { console.warn('URL do PDF inválida', e); }
+                        }
+                        if (ebook.cover_image_url) {
+                            try {
+                                const coverPath = new URL(ebook.cover_image_url).pathname.split('/ebooks/')[1];
+                                if(coverPath) filesToDelete.push(coverPath);
+                            } catch(e) { console.warn('URL da Capa inválida', e); }
+                        }
+
+                        if (filesToDelete.length > 0) {
+                            const { error: storageError } = await sb.storage.from('ebooks').remove(filesToDelete);
+                            if (storageError && storageError.message !== 'The resource was not found') {
+                                alert(`Aviso: Erro ao deletar arquivos do storage: ${storageError.message}. O registro do banco será deletado mesmo assim.`);
+                            }
+                        }
+                    }
+
+                    const { error: dbError } = await sb.from('ebooks').delete().eq('id', ebookId);
+                    if (dbError) throw dbError;
+                    
+                    alert('E-book deletado com sucesso.');
+                    // Realtime fará a atualização
+
+                } catch (error) {
+                    console.error("Erro no processo de exclusão de e-book:", error);
+                    alert(`Erro ao excluir: ${error.message}`);
+                }
+            }
+        }
+        
+        async function handleDeleteTopic(topicId) {
+             if (confirm('Tem certeza que quer excluir este tópico?')) {
+                const { error } = await sb.from('forum_topics').delete().eq('id', topicId);
+                if (error) alert(`Erro ao excluir: ${error.message}`);
+                // Realtime fará a atualização
+             }
+        }
+        
+        async function handleDeleteComment(commentId) {
+            if (confirm('Tem certeza que quer excluir este comentário?')) {
+                const { error } = await sb.from('comments').delete().eq('id', commentId);
+                if (error) {
+                    alert(`Erro ao excluir comentário: ${error.message}`);
+                } else {
+                    alert('Comentário excluído com sucesso.');
+                    // Realtime de 'reports' vai recarregar a lista
+                }
+            }
+        }
+        
+        
         const editModal = document.getElementById('edit-user-modal');
         const editForm = document.getElementById('edit-user-form');
         const cancelEditBtn = document.getElementById('cancel-edit-btn');
@@ -1304,7 +1853,12 @@
             const deleteEbookBtn = e.target.closest('.delete-ebook-btn');
             const deleteTopicBtn = e.target.closest('.delete-topic-btn');
             const resolveReportBtn = e.target.closest('.resolve-report-btn'); 
-            const deleteReportBtn = e.target.closest('.delete-report-btn'); 
+            const deleteReportBtn = e.target.closest('.delete-report-btn');
+            const deleteReportedContentBtn = e.target.closest('.delete-reported-content-btn');
+            
+            // Listeners para o Arquivo
+            const archiveYearHeader = e.target.closest('.archive-year-header');
+            const archiveMonthBtn = e.target.closest('.archive-month-btn');
             
             if (editUserBtn) {
                 const userId = editUserBtn.dataset.id;
@@ -1321,7 +1875,7 @@
                 }
             }
             
-            if (deleteUserBtn) {
+            else if (deleteUserBtn) {
                 const userId = deleteUserBtn.dataset.id;
                 const user = allProfilesCache.find(p => p.id === userId);
                 const userName = user?.full_name || user?.email || userId;
@@ -1336,7 +1890,7 @@
                         if (error) throw error; 
                         
                         alert('Usuário deletado com sucesso.');
-                        loadUsers(); 
+                        loadUsers(); // Recarrega a lista de usuários
                         
                     } catch (error) {
                         console.error('Erro ao chamar Edge Function:', error);
@@ -1351,116 +1905,19 @@
                 }
             }
             
-            if (deleteArticleBtn) {
-                const articleId = deleteArticleBtn.dataset.id;
-                if (confirm('Tem certeza que quer excluir este artigo? Esta ação é permanente e também deletará os arquivos do armazenamento.')) {
-                    
-                    try {
-                        const { data: article, error: fetchError } = await sb.from('community-articles')
-                            .select('pdfUrl, cover_image_url')
-                            .eq('id', articleId)
-                            .single();
-
-                        if (fetchError) {
-                            alert(`Erro ao buscar dados do artigo: ${fetchError.message}\nO registro do banco será deletado mesmo assim.`);
-                        }
-
-                        if (article) {
-                            let filesToDelete = [];
-                            if (article.pdfUrl) {
-                                try {
-                                    const pdfPath = new URL(article.pdfUrl).pathname.split('/community-articles/')[1];
-                                    if(pdfPath) filesToDelete.push(pdfPath);
-                                } catch(e) { console.warn('URL do PDF inválida', e); }
-                            }
-                            if (article.cover_image_url) {
-                                try {
-                                    const coverPath = new URL(article.cover_image_url).pathname.split('/community-articles/')[1];
-                                    if(coverPath) filesToDelete.push(coverPath);
-                                } catch(e) { console.warn('URL da Capa inválida', e); }
-                            }
-
-                            if (filesToDelete.length > 0) {
-                                const { error: storageError } = await sb.storage.from('community-articles').remove(filesToDelete);
-                                if (storageError && storageError.message !== 'The resource was not found') {
-                                    alert(`Aviso: Erro ao deletar arquivos do storage: ${storageError.message}. O registro do banco será deletado mesmo assim.`);
-                                }
-                            }
-                        }
-
-                        const { error: dbError } = await sb.from('community-articles').delete().eq('id', articleId);
-                        if (dbError) throw dbError;
-
-                        alert('Artigo deletado com sucesso.');
-                        loadArticles(); 
-
-                    } catch (error) {
-                        console.error("Erro no processo de exclusão de artigo:", error);
-                        alert(`Erro ao excluir: ${error.message}`);
-                    }
-                }
+            else if (deleteArticleBtn) {
+                await handleDeleteArticle(deleteArticleBtn.dataset.id);
             }
             
-            if (deleteEbookBtn) {
-                const ebookId = deleteEbookBtn.dataset.id;
-                if (confirm('Tem certeza que quer excluir este e-book? Esta ação é permanente e também deletará os arquivos do armazenamento.')) {
-                    
-                    try {
-                        const { data: ebook, error: fetchError } = await sb.from('ebooks')
-                            .select('pdf_url, cover_image_url')
-                            .eq('id', ebookId)
-                            .single();
-
-                        if (fetchError) {
-                            alert(`Erro ao buscar dados do e-book: ${fetchError.message}\nO registro do banco será deletado mesmo assim.`);
-                        }
-
-                        if (ebook) {
-                            let filesToDelete = [];
-                            if (ebook.pdf_url) {
-                                try {
-                                    const pdfPath = new URL(ebook.pdf_url).pathname.split('/ebooks/')[1];
-                                    if(pdfPath) filesToDelete.push(pdfPath);
-                                } catch(e) { console.warn('URL do PDF inválida', e); }
-                            }
-                            if (ebook.cover_image_url) {
-                                try {
-                                    const coverPath = new URL(ebook.cover_image_url).pathname.split('/ebooks/')[1];
-                                    if(coverPath) filesToDelete.push(coverPath);
-                                } catch(e) { console.warn('URL da Capa inválida', e); }
-                            }
-
-                            if (filesToDelete.length > 0) {
-                                const { error: storageError } = await sb.storage.from('ebooks').remove(filesToDelete);
-                                if (storageError && storageError.message !== 'The resource was not found') {
-                                    alert(`Aviso: Erro ao deletar arquivos do storage: ${storageError.message}. O registro do banco será deletado mesmo assim.`);
-                                }
-                            }
-                        }
-
-                        const { error: dbError } = await sb.from('ebooks').delete().eq('id', ebookId);
-                        if (dbError) throw dbError;
-                        
-                        alert('E-book deletado com sucesso.');
-                        loadEbooks(); 
-
-                    } catch (error) {
-                        console.error("Erro no processo de exclusão de e-book:", error);
-                        alert(`Erro ao excluir: ${error.message}`);
-                    }
-                }
+            else if (deleteEbookBtn) {
+                await handleDeleteEbook(deleteEbookBtn.dataset.id);
             }
             
-            if (deleteTopicBtn) {
-                const topicId = deleteTopicBtn.dataset.id;
-                 if (confirm('Tem certeza que quer excluir este tópico?')) {
-                    const { error } = await sb.from('forum_topics').delete().eq('id', topicId);
-                    if (error) alert(`Erro ao excluir: ${error.message}`);
-                    else loadTopics();
-                 }
+            else if (deleteTopicBtn) {
+                await handleDeleteTopic(deleteTopicBtn.dataset.id);
             }
             
-            if (resolveReportBtn) {
+            else if (resolveReportBtn) {
                 const reportId = resolveReportBtn.dataset.id;
                 if (confirm('Marcar esta denúncia como resolvida?')) {
                     const { error } = await sb.from('reports')
@@ -1471,7 +1928,7 @@
                 }
             }
             
-            if (deleteReportBtn) {
+            else if (deleteReportBtn) {
                 const reportId = deleteReportBtn.dataset.id;
                 if (confirm('Tem certeza que quer excluir esta denúncia? (Isso não exclui o conteúdo, apenas a denúncia)')) {
                     const { error } = await sb.from('reports')
@@ -1480,6 +1937,51 @@
                     if (error) alert(`Erro ao excluir: ${error.message}`);
                     else loadReports(); 
                 }
+            }
+            
+            else if (deleteReportedContentBtn) {
+                const contentId = deleteReportedContentBtn.dataset.id;
+                const contentType = deleteReportedContentBtn.dataset.type;
+
+                if (confirm(`TEM CERTEZA?\n\nVocê está prestes a EXCLUIR PERMANENTEMENTE o CONTEÚDO reportado (tipo: ${contentType}).\n\nEsta ação não pode ser desfeita.`)) {
+                    try {
+                        switch (contentType) {
+                            case 'article':
+                                await handleDeleteArticle(contentId);
+                                break;
+                            case 'ebook':
+                                await handleDeleteEbook(contentId);
+                                break;
+                            case 'topic':
+                                await handleDeleteTopic(contentId);
+                                break;
+                            case 'comment':
+                                await handleDeleteComment(contentId);
+                                break;
+                            default:
+                                alert('Tipo de conteúdo desconhecido. Não é possível excluir.');
+                        }
+                        
+                        // Após excluir o conteúdo, recarrega a lista de denúncias
+                        await loadReports();
+
+                    } catch (error) {
+                        alert(`Erro ao excluir o conteúdo: ${error.message}`);
+                    }
+                }
+            }
+            
+            else if (archiveYearHeader) {
+                archiveYearHeader.parentElement.classList.toggle('open');
+                lucide.createIcons();
+            }
+            
+            else if (archiveMonthBtn) {
+                document.querySelectorAll('.archive-month-btn.active').forEach(btn => btn.classList.remove('active'));
+                archiveMonthBtn.classList.add('active');
+                const year = archiveMonthBtn.dataset.year;
+                const month = archiveMonthBtn.dataset.month;
+                await loadMonthData(year, month);
             }
         });
         
@@ -1509,7 +2011,293 @@
             if (e.target === editModal) editModal.classList.remove('visible');
         });
 
-        // --- 5. INICIALIZAÇÃO ---
+        // --- 5. LÓGICA DO ARQUIVO (CLIENT-SIDE) ---
+        
+        // [INÍCIO DA ALTERAÇÃO 2] Funções de Arquivo reescritas para usar JavaScript (Client-side)
+        
+        /** Busca e processa TODOS os dados de uma vez para o cache do arquivo */
+        async function fetchAndBuildArchiveData() {
+            const menuContainer = document.getElementById('archive-menu-content');
+            menuContainer.innerHTML = "<p>Carregando histórico...</p>";
+            
+            try {
+                // 1. Busca todos os 'created_at' de todas as tabelas
+                const [
+                    { data: articles, error: articlesError },
+                    { data: ebooks, error: ebooksError },
+                    { data: topics, error: topicsError }
+                ] = await Promise.all([
+                    sb.from('community-articles').select('created_at'),
+                    sb.from('ebooks').select('created_at'),
+                    sb.from('forum_topics').select('created_at')
+                ]);
+
+                if (articlesError || ebooksError || topicsError) {
+                    throw new Error(articlesError?.message || ebooksError?.message || topicsError?.message);
+                }
+
+                // 2. Processa os dados no JavaScript (Client-Side)
+                const allEntries = [
+                    ...articles.map(a => ({ type: 'article', date: new Date(a.created_at) })),
+                    ...ebooks.map(e => ({ type: 'ebook', date: new Date(e.created_at) })),
+                    ...topics.map(t => ({ type: 'topic', date: new Date(t.created_at) }))
+                ];
+
+                // 3. Agrupa por Ano e Mês (para o menu)
+                const summary = allEntries.reduce((acc, entry) => {
+                    const year = entry.date.getFullYear();
+                    const month = entry.date.getMonth() + 1; // 1-12
+                    const key = `${year}-${month}`;
+
+                    if (!acc[key]) {
+                        acc[key] = {
+                            year: year,
+                            month: month,
+                            article_count: 0,
+                            ebook_count: 0,
+                            topic_count: 0,
+                        };
+                    }
+                    acc[key][`${entry.type}_count`]++;
+                    
+                    return acc;
+                }, {});
+
+                // [NOVA LÓGICA] Garante que o mês atual exista
+                const now = new Date();
+                const currentYear = now.getFullYear();
+                const currentMonth = now.getMonth() + 1; // 1-12
+                const currentKey = `${currentYear}-${currentMonth}`;
+                
+                if (!summary[currentKey]) {
+                    // Adiciona o mês atual com 0s se ele não tiver posts
+                    summary[currentKey] = {
+                        year: currentYear,
+                        month: currentMonth,
+                        article_count: 0,
+                        ebook_count: 0,
+                        topic_count: 0,
+                    };
+                }
+                // [FIM DA NOVA LÓGICA]
+
+                // 4. Agrupa por Dia (para a tabela detalhada)
+                const dailyData = allEntries.reduce((acc, entry) => {
+                    const year = entry.date.getFullYear();
+                    const month = entry.date.getMonth() + 1; // 1-12
+                    const day = entry.date.getDate(); // 1-31
+                    const key = `${year}-${month}-${day}`;
+
+                    if (!acc[key]) {
+                        acc[key] = {
+                            year: year,
+                            month: month,
+                            day: day,
+                            article_count: 0,
+                            ebook_count: 0,
+                            topic_count: 0,
+                        };
+                    }
+                    acc[key][`${entry.type}_count`]++;
+                    return acc;
+                }, {});
+
+                // 5. Salva no cache
+                archiveDataCache = {
+                    summary: Object.values(summary).sort((a, b) => b.year - a.year || b.month - a.month),
+                    daily: Object.values(dailyData)
+                };
+                
+                return archiveDataCache;
+
+            } catch (error) {
+                console.error("Erro ao buscar resumo do arquivo:", error);
+                menuContainer.innerHTML = `<p style="color: var(--danger-color);">Erro ao carregar menu.</p>`;
+                return null;
+            }
+        }
+        
+        async function loadArchiveMenu() {
+            // Se não tiver cache, busca os dados. Se tiver, usa o cache.
+            const archiveData = archiveDataCache || await fetchAndBuildArchiveData();
+            if (!archiveData) return;
+            
+            const menuContainer = document.getElementById('archive-menu-content');
+            const summary = archiveData.summary;
+
+            if (summary.length === 0) {
+                menuContainer.innerHTML = "<p>Nenhum dado histórico encontrado.</p>";
+                return;
+            }
+            
+            // Agrupa os meses por ano
+            const years = summary.reduce((acc, monthData) => {
+                const { year, month, article_count, ebook_count, topic_count } = monthData;
+                if (!acc[year]) {
+                    acc[year] = [];
+                }
+                acc[year].push({ 
+                    month: month, 
+                    total: article_count + ebook_count + topic_count 
+                });
+                return acc;
+            }, {});
+            
+            // Cria o HTML do menu
+            let menuHtml = '';
+            // Ordena os anos (do mais novo para o mais velho)
+            const sortedYears = Object.keys(years).sort((a, b) => b - a);
+            
+            for (const year of sortedYears) {
+                menuHtml += `
+                    <div class="archive-year ${year == new Date().getFullYear() ? 'open' : ''}">
+                        <div class="archive-year-header">
+                            <span>${year}</span>
+                            <i data-lucide="chevron-right"></i>
+                        </div>
+                        <ul class="archive-month-list">
+                            ${years[year].map(month => `
+                                <li>
+                                    <button class="archive-month-btn" data-year="${year}" data-month="${month.month}">
+                                        ${MONTH_NAMES[month.month - 1]}
+                                        <span class="month-total">${month.total}</span>
+                                    </button>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+            menuContainer.innerHTML = menuHtml;
+            lucide.createIcons();
+        }
+        
+        async function loadMonthData(year, month) {
+            const resultsContainer = document.getElementById('archive-results-content');
+            resultsContainer.innerHTML = `<p style="text-align: center; padding: 40px 0;">Carregando dados para ${MONTH_NAMES[month-1]} de ${year}...</p>`;
+            
+            // Pega os dados do cache
+            const archiveData = archiveDataCache || await fetchAndBuildArchiveData();
+            if (!archiveData) return;
+
+            // Filtra os dados diários para o mês/ano selecionado
+            const dailyDataForMonth = archiveData.daily.filter(d => d.year == year && d.month == month);
+
+            // Gera todos os dias daquele mês (para preencher buracos)
+            const daysInMonth = new Date(year, month, 0).getDate();
+            let dailyDataMap = new Map();
+            for (let i = 1; i <= daysInMonth; i++) {
+                dailyDataMap.set(i, {
+                    entry_day: i,
+                    article_count: 0,
+                    ebook_count: 0,
+                    topic_count: 0
+                });
+            }
+            // Preenche com os dados reais
+            dailyDataForMonth.forEach(d => {
+                dailyDataMap.set(d.day, {
+                    entry_day: d.day,
+                    article_count: d.article_count,
+                    ebook_count: d.ebook_count,
+                    topic_count: d.topic_count
+                });
+            });
+            
+            const dailyData = Array.from(dailyDataMap.values());
+            
+            // Processa os dados para o resumo
+            let totalArticles = 0;
+            let totalEbooks = 0;
+            let totalTopics = 0;
+            let maxDay = { day: 0, total: -1 };
+            let minDay = { day: 0, total: Infinity };
+            let noActivityDays = 0;
+            
+            dailyData.forEach(day => {
+                const dayTotal = day.article_count + day.ebook_count + day.topic_count;
+                totalArticles += day.article_count;
+                totalEbooks += day.ebook_count;
+                totalTopics += day.topic_count;
+                
+                if (dayTotal === 0) {
+                    noActivityDays++;
+                } else {
+                    if (dayTotal > maxDay.total) {
+                        maxDay = { day: day.entry_day, total: dayTotal };
+                    }
+                    // [CORREÇÃO] Só define o dia de menos atividade se for > 0
+                    if (dayTotal < minDay.total && dayTotal > 0) { 
+                        minDay = { day: day.entry_day, total: dayTotal };
+                    }
+                }
+            });
+            
+            if (minDay.total === Infinity) minDay = { day: 0, total: 0 }; // Caso não tenha atividade
+            
+            // Gera o HTML do resultado
+            let html = `
+                <div class="archive-results-header">
+                    <h2>${MONTH_NAMES[month-1]} de ${year}</h2>
+                    <div class="archive-summary-grid">
+                        <div class="archive-summary-item">
+                            <span>${totalArticles}</span>
+                            <p>Artigos</p>
+                        </div>
+                        <div class="archive-summary-item">
+                            <span>${totalEbooks}</span>
+                            <p>E-books</p>
+                        </div>
+                        <div class="archive-summary-item">
+                            <span>${totalTopics}</span>
+                            <p>Tópicos</p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 15px; font-size: 0.9em; color: var(--text-light);">
+                        <strong>Dia com mais atividade:</strong> Dia ${maxDay.day} (${maxDay.total} itens)<br>
+                        <strong>Dia com menos atividade:</strong> Dia ${minDay.day} (${minDay.total} itens)<br>
+                        <strong>Dias sem atividade:</strong> ${noActivityDays}
+                    </div>
+                </div>
+                
+                <table class="archive-daily-table">
+                    <thead>
+                        <tr>
+                            <th>Dia</th>
+                            <th>Artigos</th>
+                            <th>E-books</th>
+                            <th>Tópicos</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${dailyData.map(day => {
+                            const total = day.article_count + day.ebook_count + day.topic_count;
+                            let rowClass = '';
+                            if (total === 0) rowClass = 'no-activity';
+                            else if (total === maxDay.total && total > 0) rowClass = 'highlight-max';
+                            else if (total === minDay.total && total > 0) rowClass = 'highlight-min';
+                            
+                            return `
+                                <tr class="${rowClass}">
+                                    <td class="day-cell">${day.entry_day}</td>
+                                    <td>${day.article_count}</td>
+                                    <td>${day.ebook_count}</td>
+                                    <td>${day.topic_count}</td>
+                                    <td>${total}</td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                </table>
+            `;
+            
+            resultsContainer.innerHTML = html;
+        }
+        
+        // [FIM DA ALTERAÇÃO 2]
+
+        // --- 6. INICIALIZAÇÃO E REALTIME ---
         async function init() {
             currentUser = await checkAdminAuth(); 
             if (currentUser) {
@@ -1525,6 +2313,7 @@
                 document.getElementById('topic-search-bar').addEventListener('input', () => loadTopics());
                 document.getElementById('report-search-bar').addEventListener('input', () => loadReports()); 
                 
+                // [INÍCIO DA ALTERAÇÃO 1] Adiciona os canais de Real-time
                 sb.channel('public:reports')
                   .on('postgres_changes', { event: '*', schema: 'public', table: 'reports' }, 
                     (payload) => {
@@ -1540,6 +2329,55 @@
                     }
                   )
                   .subscribe();
+                
+                // Canal para Artigos
+                sb.channel('public:community-articles')
+                  .on('postgres_changes', { event: '*', schema: 'public', table: 'community-articles' }, 
+                    (payload) => {
+                        console.log('Mudança nos artigos detectada!', payload);
+                        archiveDataCache = null; // Limpa o cache do arquivo
+                        if(document.getElementById('dashboard-panel').classList.contains('active')) {
+                            loadDashboardStats(); // Atualiza contagem no dashboard
+                        }
+                        if(document.getElementById('artigos-panel').classList.contains('active')) {
+                            loadArticles(); // Atualiza a tabela de artigos se estiver aberta
+                        }
+                    }
+                  )
+                  .subscribe();
+
+                // Canal para E-books
+                sb.channel('public:ebooks')
+                  .on('postgres_changes', { event: '*', schema: 'public', table: 'ebooks' }, 
+                    (payload) => {
+                        console.log('Mudança nos e-books detectada!', payload);
+                        archiveDataCache = null; // Limpa o cache do arquivo
+                        if(document.getElementById('dashboard-panel').classList.contains('active')) {
+                            loadDashboardStats();
+                        }
+                        if(document.getElementById('ebooks-panel').classList.contains('active')) {
+                            loadEbooks();
+                        }
+                    }
+                  )
+                  .subscribe();
+
+                // Canal para Tópicos do Fórum
+                sb.channel('public:forum_topics')
+                  .on('postgres_changes', { event: '*', schema: 'public', table: 'forum_topics' }, 
+                    (payload) => {
+                        console.log('Mudança nos tópicos detectada!', payload);
+                        archiveDataCache = null; // Limpa o cache do arquivo
+                        if(document.getElementById('dashboard-panel').classList.contains('active')) {
+                            loadDashboardStats();
+                        }
+                        if(document.getElementById('forum-panel').classList.contains('active')) {
+                            loadTopics();
+                        }
+                    }
+                  )
+                  .subscribe();
+                // [FIM DA ALTERAÇÃO 1]
             }
         }
         

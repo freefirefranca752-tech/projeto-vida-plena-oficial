@@ -354,6 +354,9 @@
 
         let currentUser = null;
         
+        // [NOVO] Adiciona a variável do canal de presença
+        let presenceChannel = null;
+        
         let allTopicsCache = [];
         let allEbooksCache = [];
         let allArticlesCache = [];
@@ -1339,6 +1342,7 @@
 
         // ########## 5. AUTENTICAÇÃO E INICIALIZAÇÃO ##########
         
+        // [FUNÇÃO ATUALIZADA]
         async function setupPage() {
             const { data: { session }, error: sessionError } = await sb.auth.getSession();
              if (sessionError || !session) {
@@ -1355,6 +1359,30 @@
             
             currentUser.profile = profile || {};
             if (!currentUser.profile.email && currentUser.email) currentUser.profile.email = currentUser.email;
+
+            // --- [INÍCIO DA LÓGICA DE PRESENÇA] ---
+            // Se já existir um canal, desconecta antes
+            if (presenceChannel) {
+                await presenceChannel.unsubscribe();
+                presenceChannel = null;
+            }
+
+            // Conecta ao canal de presença
+            presenceChannel = sb.channel('user-presence');
+            presenceChannel
+                .on('presence', { event: 'sync' }, () => {
+                    // A página da comunidade (por enquanto) não precisa LER quem está online
+                })
+                .subscribe(async (status) => {
+                    if (status === 'SUBSCRIBED') {
+                        // AVISA QUE ESTÁ ONLINE
+                        await presenceChannel.track({ 
+                            user_id: currentUser.id, 
+                            online_at: new Date().toISOString() 
+                        });
+                    }
+                });
+            // --- [FIM DA LÓGICA DE PRESENÇA] ---
 
             setupNav(session, currentUser.profile);
             
