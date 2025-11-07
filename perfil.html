@@ -294,7 +294,6 @@
         <i data-lucide="arrow-up"></i>
     </a>
 
-
     <script type="module">
         const { createClient } = supabase;
         const SUPABASE_URL = 'https://iuyapkycjgmyvxlpycdd.supabase.co'; 
@@ -309,9 +308,6 @@
         let allMessages = {}; 
         let onlineUsers = new Set();
         let presenceChannel = null;
-        
-        // [NOVO] Canal de mensagens global movido para o escopo principal
-        let globalMessagesChannel = null;
 
         function formatTimeAgo(dateString) {
             if (!dateString) return 'há muito tempo';
@@ -331,6 +327,7 @@
             return "agora mesmo";
         }
 
+        // [NOVA FUNÇÃO] Apenas busca a contagem de notificações não lidas
         async function updateSidebarNotificationCount() {
             if (!currentUser) return;
             const { count, error } = await sb.from('notifications')
@@ -351,9 +348,13 @@
             }
         }
 
+        // ==========================================================
+        // [FUNÇÃO CORRIGIDA] Busca a contagem total de mensagens não lidas
+        // ==========================================================
         async function updateSidebarMessagesCount() {
-            if (!currentUser) return; 
+            if (!currentUser) return; // Não faz nada se o usuário não estiver carregado
 
+            // Busca a contagem de mensagens onde EU sou o destinatário e is_read = false
             const { count, error } = await sb.from('messages')
                 .select('*', { count: 'exact', head: true })
                 .eq('receiver_id', currentUser.id)
@@ -364,9 +365,9 @@
             if (badge && !error) {
                 if (count > 0) {
                     badge.textContent = count;
-                    badge.style.display = 'block'; 
+                    badge.style.display = 'block'; // Mostra o contador
                 } else {
-                    badge.style.display = 'none'; 
+                    badge.style.display = 'none'; // Esconde se for 0
                 }
             }
         }
@@ -445,7 +446,7 @@
                      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'notifications' },
                      (payload) => {
                          updateNotificationBadge(session.user.id);
-                         updateSidebarNotificationCount(); 
+                         updateSidebarNotificationCount(); // [MUDANÇA] Atualiza o da barra lateral
                      })
                      .subscribe((status) => {
                           if (status === 'CHANNEL_ERROR') { console.error('Erro no canal de notificações RT:', notificationChannel.error()); }
@@ -457,90 +458,6 @@
              }
               lucide.createIcons();
         }
-
-        // [INÍCIO DA CORREÇÃO] Canal de Mensagens movido para DENTRO de initializePage
-        // e o filtro (filter) corrigido.
-        function setupMessageListener() {
-            // Se já existir um canal, remove
-            if (globalMessagesChannel) {
-                sb.removeChannel(globalMessagesChannel);
-                globalMessagesChannel = null;
-            }
-            
-            globalMessagesChannel = sb.channel('public:messages')
-                .on('postgres_changes', 
-                    { 
-                        event: '*', // Escuta INSERT, UPDATE, e DELETE
-                        schema: 'public', 
-                        table: 'messages',
-                        // [A GRANDE CORREÇÃO ESTÁ AQUI] Trocado (,) por (or=)
-                        // Escuta qualquer mensagem ONDE (destinatário sou eu OU remetente sou eu)
-                        filter: `or=(receiver_id.eq.${currentUser.id},sender_id.eq.${currentUser.id})`
-                    }, 
-                    (payload) => {
-                        
-                        const panelIsActive = document.getElementById('mensagens-panel').classList.contains('active');
-                        const msg = (payload.eventType === 'INSERT' || payload.eventType === 'UPDATE') ? payload.new : payload.old;
-                        if (!msg) return; 
-                        
-                        // Verifica se a mensagem é da conversa atual
-                        const isChatPartnerMessage = (msg.sender_id === currentChatPartnerId && msg.receiver_id === currentUser.id) ||
-                                                     (msg.sender_id === currentUser.id && msg.receiver_id === currentChatPartnerId);
-
-                        if (panelIsActive && isChatPartnerMessage) {
-                            // 1. ESTAMOS NA JANELA DE CHAT ATIVA
-                            
-                            if (payload.eventType === 'INSERT') {
-                                const newMsg = payload.new;
-                                if (!allMessages[newMsg.id]) { 
-                                    allMessages[newMsg.id] = newMsg;
-                                    renderMessage(newMsg);
-                                    scrollToBottom();
-                                    
-                                    // Marca como lida
-                                    if (newMsg.receiver_id === currentUser.id) {
-                                        sb.from('messages').update({ is_read: true }).eq('id', newMsg.id).then();
-                                    }
-                                }
-                            }
-                            else if (payload.eventType === 'UPDATE') {
-                                const updatedMsg = payload.new;
-                                if (allMessages[updatedMsg.id]) {
-                                    const msgElement = document.getElementById(`msg-${updatedMsg.id}`);
-                                    allMessages[updatedMsg.id] = updatedMsg; 
-                                    if (msgElement) {
-                                        msgElement.outerHTML = createMessageHTML(updatedMsg);
-                                        lucide.createIcons();
-                                    }
-                                }
-                            }
-                            else if (payload.eventType === 'DELETE') {
-                                const deletedMsgId = payload.old.id;
-                                if (allMessages[deletedMsgId]) {
-                                    const msgElement = document.getElementById(`msg-${deletedMsgId}`);
-                                    if (msgElement) msgElement.remove(); 
-                                    delete allMessages[deletedMsgId]; 
-                                }
-                            }
-                            
-                        } else {
-                            // 2. NÃO ESTAMOS NA JANELA DE CHAT
-                            // Apenas atualiza a lista de conversas (para badge/última msg) e o contador
-                            if (payload.eventType === 'INSERT' || payload.eventType === 'DELETE') {
-                                 // Se o painel de mensagens estiver aberto (mas em outra conversa),
-                                 // recarrega a lista de conversas
-                                 if (panelIsActive) {
-                                     loadConversations();
-                                 }
-                                 // Sempre atualiza o contador da barra lateral
-                                 updateSidebarMessagesCount();
-                            }
-                        }
-                    }
-                )
-                .subscribe();
-        }
-        // [FIM DA CORREÇÃO]
 
         async function initializePage() {
             const { data: { session } } = await sb.auth.getSession();
@@ -1026,10 +943,13 @@
                     return;
                 }
 
+                // [MUDANÇA] Alterado o HTML do map para incluir o wrapper e o contador
                 conversationList.innerHTML = data.map(convo => {
                     const avatar = convo.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(convo.full_name || 'U')}`;
                     const displayName = convo.full_name || 'Usuário'; 
                     
+                    // Assumindo que seu RPC "get_conversations_with_status" retorna "unread_count"
+                    // Se o nome da coluna for outro, altere "convo.unread_count" abaixo.
                     const unreadCount = convo.unread_count || 0; 
                     
                     return `
@@ -1061,12 +981,16 @@
                 if(existingConvoItem) {
                     existingConvoItem.classList.add('active');
                     
+                    // [MUDANÇA] Esconde o contador ao abrir a conversa
                     const unreadBadge = existingConvoItem.querySelector('.conversation-unread-count');
                     if (unreadBadge) {
                         unreadBadge.style.display = 'none';
                         unreadBadge.textContent = '0';
                     }
                     
+                    // ==========================================================
+                    // Marca as mensagens como lidas
+                    // ==========================================================
                     const { error: updateError } = await sb.from('messages')
                         .update({ is_read: true })
                         .eq('receiver_id', currentUser.id)
@@ -1076,6 +1000,9 @@
                     if (updateError) {
                         console.error("Erro ao marcar mensagens como lidas:", updateError);
                     }
+                    // ==========================================================
+                    // Fim da alteração
+                    // ==========================================================
                 }
 
                 currentChatPartnerId = otherUserId; 
@@ -1124,6 +1051,11 @@
                 });
 
                 chatChannel
+                    // [INÍCIO DA CORREÇÃO] Removemos o listener 'postgres_changes' daqui
+                    // Ele era redundante e conflitava com o 'globalMessagesChannel'
+                    // .on('postgres_changes', ...) 
+                    // [FIM DA CORREÇÃO]
+
                     .on('broadcast', { event: 'typing' }, ({ payload }) => {
                         if (payload.user_id === currentChatPartnerId) {
                             updateChatHeaderStatus('typing');
@@ -1162,6 +1094,7 @@
                 });
             }
 
+            // Função createMessageHTML ATUALIZADA
             function createMessageHTML(msg) {
                 const isSent = msg.sender_id === currentUser.id;
                 const authorName = isSent ? 'Você' : (chatHeaderName.textContent || 'Usuário');
@@ -1271,14 +1204,15 @@
                     chatMessageInput.value = tempContent; 
                     alert("Não foi possível enviar a mensagem.");
                 } else {
-                    // [INÍCIO DA CORREÇÃO] O código foi descomentado
-                    // Precisamos renderizar a mensagem enviada imediatamente
+                    // [REMOVIDO] Não precisamos renderizar aqui,
+                    // o realtime 'globalMessagesChannel' vai pegar a mensagem.
+                    /*
                     if (!allMessages[insertedMsg.id]) {
                         allMessages[insertedMsg.id] = insertedMsg;
                         renderMessage(insertedMsg);
                         scrollToBottom();
                     }
-                    // [FIM DA CORREÇÃO]
+                    */
                 }
             });
 
@@ -1295,6 +1229,11 @@
                         const { error } = await sb.from('messages').delete().eq('id', msgId).eq('sender_id', currentUser.id);
                         if (error) {
                             alert("Erro ao excluir: " + error.message);
+                        } else {
+                            // [REMOVIDO] Não precisamos remover manualmente,
+                            // o realtime 'globalMessagesChannel' vai pegar o DELETE.
+                            // msgElement.remove();
+                            // delete allMessages[msgId];
                         }
                     }
                 }
@@ -1347,6 +1286,8 @@
                 if (error) {
                     alert('Erro ao salvar edição: ' + error.message);
                 }
+                // [REMOVIDO] Não precisamos atualizar a UI,
+                // o realtime 'globalMessagesChannel' vai pegar o UPDATE.
             });
             
             function showReplyPreview(msg, authorName) {
@@ -1386,6 +1327,76 @@
                     bubble.style.display = 'block';
                 });
             }
+
+            // [INÍCIO DA CORREÇÃO] Canal Global de Mensagens ATUALIZADO
+            const globalMessagesChannel = sb.channel('public:messages')
+                .on('postgres_changes', 
+                    { 
+                        event: '*', // Escuta INSERT, UPDATE, e DELETE
+                        schema: 'public', 
+                        table: 'messages',
+                        // Escuta qualquer mensagem ENVIADA por mim OU RECEBIDA por mim
+                        filter: `receiver_id=eq.${currentUser.id},sender_id=eq.${currentUser.id}`
+                    }, 
+                    (payload) => {
+                        
+                        const panelIsActive = document.getElementById('mensagens-panel').classList.contains('active');
+                        const msg = (payload.eventType === 'INSERT' || payload.eventType === 'UPDATE') ? payload.new : payload.old;
+                        if (!msg) return; // Se não houver dados, ignora
+                        
+                        // Verifica se a mensagem é da conversa atual
+                        const isChatPartnerMessage = (msg.sender_id === currentChatPartnerId && msg.receiver_id === currentUser.id) ||
+                                                     (msg.sender_id === currentUser.id && msg.receiver_id === currentChatPartnerId);
+
+                        if (panelIsActive && isChatPartnerMessage) {
+                            // 1. ESTAMOS NA JANELA DE CHAT ATIVA
+                            
+                            if (payload.eventType === 'INSERT') {
+                                const newMsg = payload.new;
+                                if (!allMessages[newMsg.id]) { 
+                                    allMessages[newMsg.id] = newMsg;
+                                    renderMessage(newMsg);
+                                    scrollToBottom();
+                                    
+                                    // Marca como lida
+                                    if (newMsg.receiver_id === currentUser.id) {
+                                        sb.from('messages').update({ is_read: true }).eq('id', newMsg.id).then();
+                                    }
+                                }
+                            }
+                            else if (payload.eventType === 'UPDATE') {
+                                const updatedMsg = payload.new;
+                                if (allMessages[updatedMsg.id]) {
+                                    const msgElement = document.getElementById(`msg-${updatedMsg.id}`);
+                                    allMessages[updatedMsg.id] = updatedMsg; 
+                                    if (msgElement) {
+                                        msgElement.outerHTML = createMessageHTML(updatedMsg);
+                                        lucide.createIcons();
+                                    }
+                                }
+                            }
+                            else if (payload.eventType === 'DELETE') {
+                                const deletedMsgId = payload.old.id;
+                                if (allMessages[deletedMsgId]) {
+                                    const msgElement = document.getElementById(`msg-${deletedMsgId}`);
+                                    if (msgElement) msgElement.remove(); 
+                                    delete allMessages[deletedMsgId]; 
+                                }
+                            }
+                            
+                        } else {
+                            // 2. NÃO ESTAMOS NA JANELA DE CHAT
+                            // Apenas atualiza a lista de conversas (para badge/última msg) e o contador
+                            if (payload.eventType === 'INSERT' || payload.eventType === 'DELETE') {
+                                 loadConversations();
+                                 updateSidebarMessagesCount();
+                            }
+                        }
+                    }
+                )
+                .subscribe();
+            // [FIM DA CORREÇÃO]
+
 
             async function loadNotifications() {
                 const { data, error } = await sb.from('notifications').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false });
@@ -1564,14 +1575,11 @@
             // --- CARREGAMENTO INICIAL ---
             await loadProfile();
             await loadMyArticles();
+            // [MUDANÇA] Chamamos as novas funções de contagem
             await updateSidebarNotificationCount(); 
             await updateSidebarMessagesCount();
+            // [MUDANÇA] Removemos loadNotifications() daqui para não marcar como lido ao carregar a pág.
             await setupPresence(); 
-
-            // [INÍCIO DA CORREÇÃO] Canal de Mensagens movido para DENTRO de initializePage
-            // e o filtro foi corrigido para 'or='
-            setupMessageListener();
-            // [FIM DA CORREÇÃO]
 
             if (chatMessageInput) {
                 chatMessageInput.addEventListener('input', () => {
