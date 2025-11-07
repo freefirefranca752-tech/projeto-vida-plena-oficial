@@ -107,11 +107,13 @@ if (registerForm) {
 
         showLoading(submitButton, "Criando conta...");
 
-        const { data, error } = await sb.auth.signUp({
+     const { data, error } = await sb.auth.signUp({
             email: email,
             password: password,
             options: {
-                data: { user_name: userName }
+                data: { 
+                    full_name: userName
+                }
             }
         });
 
@@ -120,7 +122,10 @@ if (registerForm) {
             hideLoading(submitButton, "Concluir e Entrar"); 
         } else {
             showFeedback('Conta criada! Redirecionando...', 'success');
-            window.location.href = 'comunidade.html'; 
+            // Espera um segundo para o usuário ler a mensagem de sucesso
+            setTimeout(() => {
+                window.location.href = 'comunidade.html'; 
+            }, 1000);
         }
     });
 }

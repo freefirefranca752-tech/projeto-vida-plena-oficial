@@ -48,7 +48,59 @@
         }
         
         .main-header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: var(--font-title); font-size: 1.8rem; font-weight: 700; color: var(--green-dark); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        
+        /* --- [INÍCIO] REGRAS DO LOGO ATUALIZADAS --- */
+        .logo {
+            color: var(--green-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px; 
+        }
+        .logo-img {
+            height: 40px; 
+            width: 40px;  
+            object-fit: contain;
+        }
+        .logo span {
+            font-family: var(--font-title);
+            font-size: 1.8rem; 
+            font-weight: 700;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+        /* No rodapé, o logo é um pouco menor */
+        .footer-about .logo .logo-img {
+            height: 35px;
+            width: 35px;
+        }
+        .footer-about .logo span {
+            font-size: 1.3rem;
+        }
+         /* No formulário de auth, o logo é um pouco diferente */
+        .auth-logo { 
+            font-family: var(--font-title); 
+            font-size: 2rem; 
+            font-weight: 700; 
+            color: var(--green-dark); 
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            justify-content: center; 
+            margin-bottom: 30px; 
+        }
+        .auth-logo .logo-img {
+            height: 45px; /* Tamanho ligeiramente maior para o form */
+            width: 45px;
+        }
+        .auth-logo span {
+            font-size: 2rem;
+            white-space: normal;
+            line-height: 1.3;
+        }
+        /* --- [FIM] REGRAS DO LOGO --- */
+
         .main-nav { display: flex; align-items: center; }
         .nav-links { display: flex; gap: 35px; list-style: none; }
         .nav-links a { color: var(--text-color); text-decoration: none; font-weight: 600; transition: color 0.3s ease; }
@@ -68,7 +120,7 @@
         .auth-container { display: flex; width: 100%; max-width: 900px; min-height: 600px; background: var(--white); border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; }
         .auth-panel-image { flex: 1; background-image: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2120&auto-format&fit=crop'); background-size: cover; background-position: center; }
         .auth-panel-form { flex: 1; padding: 50px; display: flex; flex-direction: column; justify-content: center; }
-        .auth-logo { font-family: var(--font-title); font-size: 2rem; font-weight: 700; color: var(--green-dark); text-decoration: none; display: flex; align-items: center; gap: 10px; justify-content: center; margin-bottom: 30px; }
+       
         .auth-panel-form h1 { font-family: var(--font-title); color: var(--green-dark); font-size: 1.8rem; margin-bottom: 10px; text-align: center; }
         .auth-panel-form p { text-align: center; color: var(--text-light); margin-bottom: 30px; }
         .form-group { margin-bottom: 20px; position: relative; }
@@ -117,89 +169,57 @@
                 justify-content: center;
             }
 
+            /* [AJUSTADO] Regra do logo no mobile */
+            .logo span {
+                font-size: 1.2rem; /* Tamanho menor para caber */
+                white-space: normal; /* Permite quebra de linha */
+                line-height: 1.3;
+            }
+            .auth-logo span {
+                font-size: 1.5rem;
+            }
+        }
+            
+        /* ===== MENU RESPONSIVO (corrigido com slide) ===== */
+        @media (max-width: 900px) {
             .main-nav { 
                 flex-grow: 1; 
                 justify-content: flex-end; 
             } 
-            
-            .nav-links { 
+
+            .nav-links {
                 position: fixed; 
                 top: 0; 
                 right: -100%;
                 width: 70%; 
                 max-width: 300px; 
                 height: 100vh; 
-                background-color: var(--bg-soft);
-                flex-direction: column; 
-                align-items: flex-start; 
-                justify-content: center; 
-                padding: 20px 40px; 
-                box-shadow: var(--shadow); 
+                z-index: 1001; 
+                background-color: var(--white);
+                box-shadow: var(--shadow);
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                padding: 80px 40px 20px;
+                gap: 25px;
                 transition: right 0.5s ease-in-out;
-                gap: 30px;
-                z-index: 1000;
-            } 
-            
-            .nav-links.active { 
-                right: 0;
-            } 
-            .menu-toggle { 
-                display: block;
-                
             }
-            /* ===== MENU RESPONSIVO ===== */
-/* Correção de Posicionamento e Z-Index no Mobile (900px ou 768px) */
-@media (max-width: 900px) { /* Use a media query que for mais relevante no seu código */
-    
-    .main-nav { 
-        /* Mantém o botão no canto direito */
-        flex-grow: 1; 
-        justify-content: flex-end; 
-    } 
 
-    .nav-links {
-        /* [CRUCIAL] Muda para posição fixa na tela */
-        position: fixed; 
-        top: 0; 
-        right: -100%;
-        width: 70%; 
-        max-width: 300px; 
-        
-        /* [CRUCIAL] Ocupa a altura total da tela visível */
-        height: 100vh; 
-        
-        /* [CRUCIAL] Fica acima de TUDO na página */
-        z-index: 1001; 
-        
-        background-color: var(--white); /* ou var(--bg-soft) */
-        box-shadow: var(--shadow);
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start; /* Alinha os links no topo (melhor para menus grandes) */
-        padding: 80px 40px 20px; /* Adiciona padding no topo para passar o header */
-        gap: 25px;
-        transition: right 0.5s ease-in-out;
-    }
-
-    .nav-links.active {
-        right: 0;
-    }
-    
-    .menu-toggle {
-        display: block;
-        z-index: 1002; /* Sempre acima do painel do menu */
-    }
-    
-}
-
-          
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+                z-index: 1002;
+            }
         }
 
-/* [ADICIONADO] Classe para travar o scroll do body 
-*/
-body.menu-open {
-    overflow-y: hidden;
-    overflow-x: hidden;
-    position: fixed;
-    width: 100%;
-}
+          
+        /* [ADICIONADO] Classe para travar o scroll do body */
+        body.menu-open {
+            overflow-y: hidden;
+            overflow-x: hidden;
+            position: fixed;
+            width: 100%;
+        }

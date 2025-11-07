@@ -338,6 +338,20 @@
         border: none;
         z-index: 9999; /* <--- CORREÇÃO: Valor mais alto ainda */
     }
+    /* ========================================================
+    == [INÍCIO] ADICIONE ESTE BLOCO DE CÓDIGO PARA CORRIGIR ==
+    ========================================================
+    */
+
+    /* Esconde o botão "Login" (que fica fora do menu) no mobile */
+    .btn-desktop-login {
+        display: none;
+    }
+    
+    /* Mostra o botão "Login" (que fica DENTRO do menu) no mobile */
+    .btn-mobile-login {
+        display: block; /* ou 'list-item' */
+    }
 }
 /* Classe que o JavaScript vai adicionar ao <body> 
   para travar o scroll vertical 

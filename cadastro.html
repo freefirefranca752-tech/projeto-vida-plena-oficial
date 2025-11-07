@@ -24,7 +24,10 @@
     </script>
    <header class="main-header">
         <div class="container">
-            <a href="index.html" class="logo"> <i data-lucide="leaf"></i> Vida Plena </a>
+            <a href="index.html" class="logo">
+                <img src="./imagens/logo.png" alt="Logo Em Busca de Uma Vida Saudável" class="logo-img">
+                <span>Em Busca de Uma Vida Saudável</span>
+            </a>
             
             <nav class="main-nav" id="main-nav">
                 <ul class="nav-links" id="nav-links">
@@ -43,9 +46,12 @@
         <div class="auth-container">
             <div class="auth-panel-image"></div>
             <div class="auth-panel-form">
-                <a href="index.html" class="auth-logo"> <i data-lucide="leaf"></i> Vida Plena </a>
+                <a href="index.html" class="auth-logo">
+                    <img src="./imagens/logo.png" alt="Logo Em Busca de Uma Vida Saudável" class="logo-img">
+                    <span>Em Busca de Uma Vida Saudável</span>
+                </a>
                 <h1>Quase lá!</h1>
-<p>Complete seu cadastro para baixar o e-book e acessar a comunidade.</p>
+                <p>Complete seu cadastro para baixar o e-book e acessar a comunidade.</p>
                 <form id="register-form">
                     <div class="progress-bar">
                         <div class="progress-step active" data-step="1">1. Conta</div>
@@ -68,6 +74,9 @@
                             <input type="text" id="user-name" placeholder="Como podemos te chamar?" required>
                         </div>
                         <p style="font-size: 0.8rem; text-align: center; margin-top: -10px; margin-bottom: 20px;">Isso aparecerá no seu perfil da comunidade.</p>
+                        
+                        <button type="button" id="btn-prev-step" class="btn">Voltar</button>
+                        
                         <button type="submit" class="btn btn-primary">Concluir e Entrar</button>
                     </fieldset>
                 </form>
@@ -88,7 +97,10 @@
         <div class="container">
             <div class="footer-top">
                 <div class="footer-col footer-about">
-                    <a href="index.html" class="logo"> <i data-lucide="leaf"></i> Vida Plena </a>
+                    <a href="index.html" class="logo">
+                        <img src="./imagens/logo.png" alt="Logo Em Busca de Uma Vida Saudável" class="logo-img">
+                        <span>Em Busca de Uma Vida Saudável</span>
+                    </a>
                     <p>Um projeto de TCC para uma vida mais saudável, combatendo o sedentarismo e a desinformação.</p>
                 </div>
                 <div class="footer-col">
@@ -120,6 +132,25 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
+            // Pega os elementos do formulário de etapas
+            const btnPrev = document.getElementById('btn-prev-step');
+            const step1 = document.getElementById('step-1');
+            const step2 = document.getElementById('step-2');
+            const progressStep1 = document.querySelector('.progress-step[data-step="1"]');
+            const progressStep2 = document.querySelector('.progress-step[data-step="2"]');
+
+            // Adiciona o clique no botão "Voltar"
+            if (btnPrev && step1 && step2 && progressStep1 && progressStep2) {
+                btnPrev.addEventListener('click', () => {
+                    // Esconde a etapa 2 e mostra a etapa 1
+                    step2.classList.remove('active');
+                    step1.classList.add('active');
+                    
+                    // Atualiza a barra de progresso
+                    progressStep2.classList.remove('active');
+                    progressStep1.classList.add('active');
+                });
+            }
 
             // --- SCRIPT DO MENU MOBILE ---
             const menuToggle = document.getElementById('menu-toggle');
@@ -129,6 +160,10 @@
             const toggleMenu = () => {
                 if (!navLinks || !menuToggle) return;
                 navLinks.classList.toggle('active');
+
+                // [ADICIONADO] Trava o scroll quando o menu está aberto
+                document.body.classList.toggle('menu-open');
+
                 const icon = menuToggle.querySelector('i');
                 if (icon) {
                      icon.setAttribute('data-lucide', navLinks.classList.contains('active') ? 'x' : 'menu');

@@ -24,7 +24,10 @@
     </script>
    <header class="main-header">
         <div class="container">
-            <a href="index.html" class="logo"> <i data-lucide="leaf"></i> Vida Plena </a>
+            <a href="index.html" class="logo">
+                <img src="./imagens/logo.png" alt="Logo Em Busca de Uma Vida Saudável" class="logo-img">
+                <span>Em Busca de Uma Vida Saudável</span>
+            </a>
             
             <nav class="main-nav" id="main-nav">
                 <ul class="nav-links" id="nav-links">
@@ -43,7 +46,10 @@
         <div class="auth-container">
             <div class="auth-panel-image"></div>
             <div class="auth-panel-form">
-                <a href="index.html" class="auth-logo"> <i data-lucide="leaf"></i> Vida Plena </a>
+                <a href="index.html" class="auth-logo">
+                    <img src="./imagens/logo.png" alt="Logo Em Busca de Uma Vida Saudável" class="logo-img">
+                    <span>Em Busca de Uma Vida Saudável</span>
+                </a>
                 <h1>Bem-vindo de volta!</h1>
                 <p>Faça login para continuar sua jornada.</p>
                 <form id="login-form">
@@ -73,7 +79,10 @@
         <div class="container">
              <div class="footer-top">
                 <div class="footer-col footer-about">
-                    <a href="index.html" class="logo"> <i data-lucide="leaf"></i> Vida Plena </a>
+                    <a href="index.html" class="logo">
+                        <img src="./imagens/logo.png" alt="Logo Em Busca de Uma Vida Saudável" class="logo-img">
+                        <span>Em Busca de Uma Vida Saudável</span>
+                    </a>
                     <p>Um projeto de TCC para uma vida mais saudável, combatendo o sedentarismo e a desinformação.</p>
                 </div>
                 <div class="footer-col">
@@ -114,6 +123,10 @@
             const toggleMenu = () => {
                 if (!navLinks || !menuToggle) return;
                 navLinks.classList.toggle('active');
+                
+                // [ADICIONADO] Trava o scroll quando o menu está aberto
+                document.body.classList.toggle('menu-open');
+
                 const icon = menuToggle.querySelector('i');
                 if (icon) {
                      icon.setAttribute('data-lucide', navLinks.classList.contains('active') ? 'x' : 'menu');
