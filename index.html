@@ -495,10 +495,7 @@
         const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let articleCarouselInitialized = false; 
-        let eventCarouselInitialized = false;
-        
-        // [NOVO] Adiciona a variável do canal de presença
-        let presenceChannel = null;
+        let eventCarouselInitialized = false; // [NOVO]
 
         // --- CARROSSEL DE ARTIGOS ---
         function initializeArticleCarousel() {
@@ -611,7 +608,9 @@
             articleCarouselInitialized = true; 
         }
 
-        // --- CARROSSEL DO EVENTO ---
+        // ================================================================
+        // [NOVO] FUNÇÃO PARA O CARROSSEL DO EVENTO
+        // ================================================================
         function initializeEventCarousel() {
             if (eventCarouselInitialized) return; 
 
@@ -637,6 +636,7 @@
             const getVisibleCardsCount = () => {
                 const width = window.innerWidth;
                 if (width < 768) return 1;
+                // Mostra 2 fotos lado a lado em telas maiores
                 return 2; 
             };
 
@@ -692,7 +692,7 @@
                 if(cards.length > visibleCards) { 
                     intervalId = setInterval(() => {
                         moveToIndexAndLoop(currentIndex + 1);
-                    }, 4000); 
+                    }, 4000); // Um pouco mais rápido para as fotos
                 }
             };
 
@@ -720,8 +720,10 @@
 
             eventCarouselInitialized = true; 
         }
+        // ================================================================
+        // FIM DA FUNÇÃO DO CARROSSEL DO EVENTO
+        // ================================================================
 
-        // --- BUSCAR ARTIGOS ---
         async function fetchAndRenderTopArticles() {
             const carouselElement = document.getElementById('articles-carousel');
             if (!carouselElement) return;
@@ -778,7 +780,6 @@
             lucide.createIcons(); 
         }
         
-        // --- BADGE DE NOTIFICAÇÃO ---
         async function updateNotificationBadge(userId) {
              if (!userId) return;
             const { count, error } = await sb.from('notifications').select('*', { count: 'exact', head: true }).eq('user_id', userId).eq('is_read', false);
@@ -793,8 +794,6 @@
             }
         }
 
-        // --- [FUNÇÃO ATUALIZADA] ---
-        // --- Configura Navegação e Lógica de Presença ---
         async function setupNav(session) {
             const mainNav = document.getElementById('main-nav');
             const navLinks = document.getElementById('nav-links');
@@ -803,14 +802,7 @@
             mainNav.querySelectorAll('.dynamic-nav-item').forEach(item => item.remove());
             navLinks.querySelectorAll('.dynamic-nav-item').forEach(item => item.remove());
 
-            // [NOVO] Desconecta canal de presença se já existir
-            if (presenceChannel) {
-                await presenceChannel.unsubscribe();
-                presenceChannel = null;
-            }
-
             if (session) {
-                // --- Lógica de Perfil (Existente) ---
                 const { data: profile, error: profileError } = await sb.from('profiles')
                     .select('avatar_url, full_name')
                     .eq('id', session.user.id)
@@ -844,44 +836,26 @@
                          if (status === 'CHANNEL_ERROR') { console.error('Erro no canal de notificações RT:', notificationChannel.error()); }
                     });
 
-                // --- [NOVA LÓGICA DE PRESENÇA ADICIONADA] ---
-                // Conecta ao canal de presença
-                presenceChannel = sb.channel('user-presence');
-                presenceChannel
-                    .on('presence', { event: 'sync' }, () => {
-                        // O index.html não precisa LER quem está online,
-                        // apenas AVISAR. Deixamos vazio.
-                    })
-                    .subscribe(async (status) => {
-                        if (status === 'SUBSCRIBED') {
-                            // AVISA QUE ESTÁ ONLINE
-                            await presenceChannel.track({ 
-                                user_id: session.user.id, 
-                                online_at: new Date().toISOString() 
-                            });
-                        }
-                    });
-                // --- [FIM DA NOVA LÓGICA DE PRESENÇA] ---
-
            } else {
-                // --- Lógica de Não Logado (Existente) ---
                 mainNav.insertAdjacentHTML('beforeend', `<a href="login.html" class="btn-nav dynamic-nav-item btn-desktop-login">Login</a>`);
                 navLinks.insertAdjacentHTML('beforeend', `<li class="dynamic-nav-item btn-mobile-login"><a href="login.html" class="btn-nav">Login</a></li>`);
             }
             
-            // --- Lógica do Botão Ebook (Existente e Corrigida) ---
-            const downloadButton = document.getElementById('btn-download-ebook');
+         const downloadButton = document.getElementById('btn-download-ebook');
             if (downloadButton) {
                 const ebookPath = 'documentos/ebook-vida-saudavel.pdf';
                 const ebookDownloadName = 'ebook-vida-saudavel.pdf';
 
                 if (session) {
-                    // 1. Usuário ESTÁ logado: Baixa o PDF
+                    // 1. Usuário ESTÁ logado:
+                    // Configura o link para baixar o arquivo PDF
                     downloadButton.href = ebookPath; 
                     downloadButton.setAttribute('download', ebookDownloadName);
                 } else {
-                    // 2. Usuário NÃO ESTÁ logado: Vai para o cadastro
+                    // 2. Usuário NÃO ESTÁ logado:
+                    // Configura o link para levar à página de cadastro
                     downloadButton.href = 'cadastro.html'; 
+                    // Garante que ele NÃO tenha o atributo de download
                     downloadButton.removeAttribute('download');  
                 }
             }
@@ -889,14 +863,13 @@
              lucide.createIcons(); 
         }
 
-        // --- INICIALIZAÇÃO DA PÁGINA ---
         async function setupPage() {
              const { data: { session } } = await sb.auth.getSession();
              setupNav(session); 
              
              await fetchAndRenderTopArticles(); 
              initializeArticleCarousel(); 
-             initializeEventCarousel(); 
+             initializeEventCarousel(); // [NOVO] Chamando o novo carrossel
         }
 
         document.addEventListener('DOMContentLoaded', setupPage);
