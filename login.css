@@ -102,7 +102,7 @@
         /* --- [FIM] REGRAS DO LOGO --- */
 
         .main-nav { display: flex; align-items: center; gap: 30px; margin-left: 30px;}
-.nav-links { display: flex; gap: 35px; list-style: none; align-items: center; }
+.nav-links { display: flex; gap: 25px; list-style: none; align-items: center; }
         .nav-links a { color: var(--text-color); text-decoration: none; font-weight: 600; transition: color 0.3s ease; }
         .nav-links a:hover { color: var(--green-dark); }
         .main-footer { background: var(--green-dark); color: rgba(255, 255, 255, 0.7); padding: 60px 0 0; width: 100%; }
