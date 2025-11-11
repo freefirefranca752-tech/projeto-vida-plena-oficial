@@ -82,8 +82,8 @@
             /* --- ESTA É A CORREÇÃO --- */
             object-fit: contain; /* Era 'cover', o que causava a distorção */
         }
-        .main-nav { display: flex; align-items: center; }
-        .nav-links { display: flex; gap: 35px; list-style: none; align-items: center; }
+       .main-nav { display: flex; align-items: center; gap: 30px; margin-left: 30px;}
+.nav-links { display: flex; gap: 35px; list-style: none; align-items: center; }
         .nav-links a { color: var(--text-color); text-decoration: none; font-weight: 600; transition: color 0.3s ease; position: relative; padding-bottom: 5px; white-space: nowrap; }
         .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 50%; transform: translateX(-50%); background-color: var(--accent-color); transition: width 0.3s ease-in-out; }
         .nav-links a:hover::after { width: 100%; }
