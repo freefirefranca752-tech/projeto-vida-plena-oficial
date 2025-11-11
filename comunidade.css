@@ -52,15 +52,7 @@
         
         /* --- ESTILOS DO CABEÇALHO (DESKTOP) --- */
         .main-header { box-shadow: 0 2px 8px rgba(0,0,0,0.05); padding: 1rem 0; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); background-color: rgba(255, 255, 255, 0.85); border-bottom: 1px solid #eee; transition: background-color 0.3s, border-color 0.3s;}
-        .main-header .container { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            /* Regras de alinhamento do desktop */
-            max-width: none;
-            margin: 0;
-            padding: 0 20px;
-        }
+.main-header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo { 
             font-family: var(--font-title); 
             font-size: 1.8rem; 
