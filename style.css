@@ -79,7 +79,7 @@
 }
 .logo span {
     font-family: var(--font-title);
-    font-size: 1.4rem; /* <--- MUDADO (para ficar igual ao 1.8rem da comunidade) */
+    font-size: 1rem; /* <--- MUDADO (para ficar igual ao 1.8rem da comunidade) */
     font-weight: 700;
     line-height: 1.2;
     white-space: nowrap;
@@ -191,7 +191,7 @@
         .card img { width: 100%; height: 200px; object-fit: cover; }
         .card-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
         .card .category { background-color: var(--green-light); color: var(--white); padding: 5px 12px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; margin-bottom: 15px; align-self: flex-start; }
-        .card h3 { font-family: var(--font-title); font-size: 1.4rem; margin-bottom: 10px; }
+        .card h3 { font-family: var(--font-title); font-size: 1rem; margin-bottom: 10px; }
         .card p { margin-bottom: 20px; flex-grow: 1; color: var(--text-light); }
         .card a.read-more-btn { color: var(--accent-color); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; transition: gap 0.3s ease; cursor: pointer; margin-top: auto; }
         .card a.read-more-btn:hover { gap: 10px; }
@@ -212,7 +212,7 @@
         .event-gallery img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; box-shadow: var(--shadow); transition: transform 0.3s ease, box-shadow 0.3s ease; }
         .event-gallery img:hover { transform: scale(1.05); box-shadow: var(--shadow-hover); }
         .testimonials-container { margin-top: 50px; }
-        .testimonials-container h4 { font-family: var(--font-title); font-size: 1.4rem; color: var(--green-dark); text-align: center; margin-bottom: 30px; }
+        .testimonials-container h4 { font-family: var(--font-title); font-size: 1rem; color: var(--green-dark); text-align: center; margin-bottom: 30px; }
         .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .testimonial-card { background-color: var(--bg-color); padding: 25px; border-radius: 15px; box-shadow: var(--shadow); border-left: 4px solid var(--accent-color); }
         .testimonial-card p { font-style: italic; color: var(--text-light); margin-bottom: 15px; }

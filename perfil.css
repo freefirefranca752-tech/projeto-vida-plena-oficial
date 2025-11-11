@@ -50,7 +50,7 @@
       .main-header .container { display: flex; justify-content: space-between; align-items: center; }
         .logo { 
             font-family: var(--font-title); 
-            font-size: 1.4rem; 
+            font-size: 1rem; 
             font-weight: 700; 
             color: var(--green-dark); 
             text-decoration: none; 
@@ -70,7 +70,7 @@
 
         .logo span {
             font-family: var(--font-title);
-            font-size: 1.4rem;
+            font-size: 1rem;
             font-weight: 700;
             line-height: 1.2;
             white-space: nowrap; 
@@ -167,7 +167,7 @@
             margin-bottom: 30px;
         }
 
-        .profile-card h3 { font-family: var(--font-title); color: var(--text-color); margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; font-size: 1.4rem; }
+        .profile-card h3 { font-family: var(--font-title); color: var(--text-color); margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; font-size: 1rem; }
         
         .profile-card h4 {
             font-family: var(--font-title);
