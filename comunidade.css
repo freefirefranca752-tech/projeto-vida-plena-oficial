@@ -381,7 +381,7 @@
             }
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             
             /* Correção do Menu (z-index) */
             .nav-links { 

@@ -181,7 +181,7 @@
         }
             
         /* ===== MENU RESPONSIVO (corrigido com slide) ===== */
-        @media (max-width: 900px) {
+       @media (max-width: 1024px) {
             .main-nav { 
                 flex-grow: 1; 
                 justify-content: flex-end; 
